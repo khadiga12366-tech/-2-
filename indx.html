@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منصة الدراسات الاجتماعية التفاعلية - الصف الثاني الإعدادي (الفصل الدراسي الأول)</title>
+  <!-- تحميل خط القاهرة (Cairo) وتجوال (Tajawal) لدعم العربية بجمالية عالية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- تحميل مكتبة Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <!-- تحميل أيقونات Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    /* تحسينات التمرير والخطوط والطباعة */
+    body {
+      font-family: 'Cairo', sans-serif;
+      scroll-behavior: smooth;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.35);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.6);
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+    }
+    .tab-fade {
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- شاشة البداية / بوابة دخول الطالب (تظهر قبل الصفحة الرئيسية) -->
+  <div id="welcomeGateScreen" class="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-sky-950 to-indigo-950 flex items-center justify-center p-4 overflow-y-auto no-print">
+    <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-800 p-6 sm:p-10 text-slate-800 dark:text-slate-100 tab-fade my-auto">
+      <!-- شعار المنصة -->
+      <div class="flex flex-col items-center text-center space-y-3 mb-7">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-700 text-white flex items-center justify-center shadow-lg">
+          <i class="fa-solid fa-earth-africa text-3xl"></i>
+        </div>
+        <span class="px-3.5 py-1 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-extrabold">
+          الصف الثاني الإعدادي • الفصل الدراسي الأول
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white leading-tight">
+          منصة الدراسات الاجتماعية التفاعلية
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+          سجّل بياناتك للدخول إلى الدروس والملخصات والاختبارات التفاعلية
+        </p>
+      </div>
+
+      <!-- نموذج إدخال الاسم والفصل -->
+      <form onsubmit="enterPlatform(event)" class="space-y-4">
+        <div>
+          <label for="gateStudentName" class="block text-xs sm:text-sm font-extrabold text-slate-700 dark:text-slate-200 mb-1.5">
+            اسم الطالب / الطالبة <span class="text-rose-500">*</span>
+          </label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute right-3.5 top-3.5 text-slate-400 text-sm"></i>
+            <input
+              type="text"
+              id="gateStudentName"
+              required
+              placeholder="اكتب اسمك الثلاثي هنا..."
+              class="w-full pr-10 pl-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-sm outline-none transition"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="gateStudentClass" class="block text-xs sm:text-sm font-extrabold text-slate-700 dark:text-slate-200 mb-1.5">
+            الفصل الدراسي <span class="text-rose-500">*</span>
+          </label>
+          <div class="relative">
+            <i class="fa-solid fa-chalkboard-user absolute right-3.5 top-3.5 text-slate-400 text-sm"></i>
+            <input
+              type="text"
+              id="gateStudentClass"
+              required
+              placeholder="اكتب فصلك (مثال: 2/1 أو ثانية أول)..."
+              class="w-full pr-10 pl-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-sm outline-none transition"
+            />
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-l from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2">
+            <span>دخول إلى المنصة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- الشريط العلوي الثابت -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <!-- زر القائمة للموبايل + الشعار -->
+      <div class="flex items-center gap-3">
+        <button id="mobileMenuBtn" onclick="toggleSidebar()" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-brand-100 dark:hover:bg-slate-700 transition" aria-label="فتح القائمة">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div class="flex items-center gap-3 cursor-pointer" onclick="selectItem('home')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-600 to-indigo-700 text-white flex items-center justify-center shadow-md">
+            <i class="fa-solid fa-earth-africa text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-tight">الدراسات الاجتماعية</h1>
+            <p id="headerStudentBadge" class="text-xs text-slate-500 dark:text-slate-400 font-semibold">الصف الثاني الإعدادي • الترم الأول</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- شريط البحث السريع -->
+      <div class="hidden md:flex items-center flex-1 max-w-md mx-4 relative">
+        <i class="fa-solid fa-magnifying-glass absolute right-3.5 text-slate-400 text-sm"></i>
+        <input
+          type="text"
+          id="searchInput"
+          oninput="handleSearch(this.value)"
+          placeholder="ابحث عن درس، مصطلح، أو سؤال في المنهج..."
+          class="w-full pr-10 pl-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-sky-500 focus:bg-white dark:focus:bg-slate-900 text-sm outline-none transition"
+        />
+        <div id="searchResultsDropdown" class="hidden absolute top-12 right-0 left-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl max-h-80 overflow-y-auto z-50 p-2"></div>
+      </div>
+
+      <!-- أدوات التحكم العلوية -->
+      <div class="flex items-center gap-2">
+        <!-- زر تعديل بيانات الطالب -->
+        <button onclick="openWelcomeGate()" class="p-2.5 rounded-xl bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/60 transition text-xs sm:text-sm font-bold flex items-center gap-1.5" title="تعديل الاسم والفصل">
+          <i class="fa-solid fa-user-pen"></i>
+          <span class="hidden md:inline">بياناتي</span>
+        </button>
+
+        <!-- مؤشر الإنجاز -->
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold" title="نسبة إتمام الدروس والتقييمات">
+          <i class="fa-solid fa-trophy text-amber-500"></i>
+          <span id="progressBadge">0 / 15 مكتمل</span>
+        </div>
+
+        <!-- زر بنك المصطلحات -->
+        <button onclick="selectItem('glossary')" class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition text-xs sm:text-sm font-bold flex items-center gap-1.5" title="قاموس المفاهيم والمصطلحات">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span class="hidden sm:inline">المصطلحات</span>
+        </button>
+
+        <!-- زر الطباعة -->
+        <button onclick="window.print()" class="hidden sm:flex p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="طباعة الدرس الحالي">
+          <i class="fa-solid fa-print"></i>
+        </button>
+
+        <!-- زر الوضع الليلي / النهاري -->
+        <button onclick="toggleDarkMode()" id="themeToggleBtn" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="تبديل المظهر">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- بحث الموبايل -->
+    <div class="md:hidden px-4 pb-3">
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-2.5 text-slate-400 text-sm"></i>
+        <input
+          type="text"
+          oninput="handleSearch(this.value)"
+          placeholder="ابحث في الدروس والمصطلحات..."
+          class="w-full pr-10 pl-4 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-sky-500"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- الحاوية الرئيسية -->
+  <div class="flex-1 max-w-7xl w-full mx-auto flex relative">
+
+    <!-- خلفية معتمة للموبايل عند فتح القائمة الجانبية -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-30 hidden lg:hidden"></div>
+
+    <!-- القائمة الجانبية (فهرس الوحدات والدروس) -->
+    <aside id="sidebar" class="fixed lg:sticky top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 z-30 transform translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col no-print">
+      <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">محتويات المنهج (4 وحدات)</span>
+        <button onclick="toggleSidebar()" class="lg:hidden text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <nav id="sidebarNav" class="flex-1 overflow-y-auto p-3 space-y-3">
+        <!-- يتم تعبئتها ديناميكياً عبر JavaScript -->
+      </nav>
+
+      <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/70">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5">
+          <span>تقدمك الدراسي</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+          <div id="progressBar" class="h-full bg-gradient-to-l from-emerald-500 to-sky-500 transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- منطقة المحتوى الرئيسي -->
+    <main id="mainContent" class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
+      <!-- يتم حقن المحتوى هنا ديناميكياً -->
+    </main>
+
+  </div>
+
+  <!-- رسالة تنبيه مخصصة (Toast Notification) بديلة عن alert -->
+  <div id="toastBox" class="fixed bottom-5 left-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none no-print">
+    <div class="bg-slate-900 dark:bg-slate-800 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 text-sm font-bold">
+      <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+      <span id="toastMessage">تم الحفظ بنجاح</span>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // قاعدة بيانات المنهج الكاملة (جميع الوحدات والدروس والتقييمات المعتمدة)
+    // =========================================================================
+    const CURRICULUM_DATA = [
+      // -------------------- الوحدة الأولى --------------------
+      {
+        id: 'u1_l1',
+        unitId: 1,
+        unitTitle: 'الوحدة الأولى: الملامح الطبيعية لقارتي آسيا وأوروبا',
+        unitColor: 'sky',
+        type: 'lesson',
+        badge: 'الدرس الأول',
+        title: 'موقع ومظاهر سطح قارتي آسيا وأوروبا',
+        pages: 'صفحات 8 – 15',
+        concepts: [
+          { term: 'أوراسيا', def: 'مصطلح يُطلق على قارتي آسيا وأوروبا معًا؛ لأن قارة أوروبا تبدو كأنها امتداد طبيعي لقارة آسيا من جهة الغرب.' },
+          { term: 'الأرخبيل', def: 'مجموعة من الجزر المتجاورة في المسطحات المائية (مثل أرخبيل اليابان وأرخبيل إندونيسيا في آسيا).' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: مساحة وموقع قارة آسيا',
+            icon: 'fa-globe-asia',
+            points: [
+              '<strong>المساحة:</strong> تبلغ نحو 44.2 مليون كم² (تمثل 30% من مساحة اليابس)، وهي <strong>أكبر قارات العالم</strong> مساحة.',
+              '<strong>الموقع الجغرافي:</strong> تحيط بها المحيطات من ثلاث جهات: المحيط القطبي الشمالي شمالًا، والمحيط الهادي شرقًا، والمحيط الهندي جنوبًا، بينما تفصلها <strong>جبال أورال</strong> والبحر المتوسط والبحر الأحمر غربًا عن أوروبا وإفريقيا.',
+              '<strong>نقاط الاقتراب:</strong> تقترب من إفريقيا عند <strong>مضيق باب المندب</strong> (وتتصل بها عند سيناء)، ومن أوروبا عند <strong>مضيقي البوسفور والدردنيل</strong>، ومن أمريكا الشمالية عند <strong>مضيق بيرنج</strong>، ومن أستراليا عند <strong>بحر تيمور</strong>.',
+              '<strong>الموقع الفلكي والنتائج:</strong> تمتد بين دائرتي عرض 10° جنوبًا إلى 81° شمالًا، وبين خطي طول 26° شرقًا حتى 170° غربًا؛ مما أدى إلى <strong>تنوع كبير في مناخها</strong> وبالتالي تنوع النباتات الطبيعية والحيوانات والمحاصيل الزراعية.',
+              '<strong>أهمية موقع آسيا:</strong> إستراتيجيًا (تشرف على ممرات مثل باب المندب وهرمز)، واقتصاديًا (معبر طرق التجارة القديمة كطريق الحرير والتوابل)، وحضاريًا ودينيًا (مهد الحضارات والديانات السماوية الثلاث).'
+            ]
+          },
+          {
+            heading: 'ثانياً: مساحة وموقع قارة أوروبا',
+            icon: 'fa-compass',
+            points: [
+              '<strong>المساحة:</strong> تبلغ نحو 10.5 ملايين كم² (7% من مساحة اليابس)، وتُعد <strong>سادس قارات العالم</strong> مساحة.',
+              '<strong>الموقع الجغرافي:</strong> يحدها المحيط القطبي الشمالي شمالًا، المحيط الأطلنطي غربًا، البحران المتوسط والأسود جنوبًا، وقارة آسيا (جبال أورال) شرقًا، وتقترب من إفريقيا عند <strong>مضيق جبل طارق</strong>.',
+              '<strong>الموقع الفلكي:</strong> تمتد بين دائرتي عرض 36° و 71° شمالًا (بأكملها في النصف الشمالي)، مما جعل معظمها يقع في <strong>المنطقة المعتدلة الشمالية</strong>، وبين خطي طول 25° غربًا و 66° شرقًا.',
+              '<strong>أهمية موقع أوروبا:</strong> إشرافها على مضيق جبل طارق والبوسفور والدردنيل، وسهولة التواصل الاقتصادي مع قارات العالم، وقيام الحضارات القديمة (اليونانية والرومانية) والحديثة.'
+            ]
+          },
+          {
+            heading: 'ثالثاً: مظاهر السطح في قارتي آسيا وأوروبا',
+            icon: 'fa-mountain',
+            points: [
+              '<strong>الجبال في آسيا:</strong> سلاسل شاهقة أشهرها <strong>جبال الهيمالايا</strong> (أعلى سلاسل العالم) وبها <strong>قمة إفرست</strong> (8848 مترًا).',
+              '<strong>الجبال في أوروبا:</strong> أشهرها <strong>جبال الألب</strong> (أعلى قممها مون بلان > 4800م)، وتُعرف باسم <strong>جبال البرانس</strong> بين فرنسا وإسبانيا، و<strong>جبال الألب الدينارية</strong> في البلقان.',
+              '<strong>الهضاب في آسيا:</strong> <strong>هضبة التبت</strong> في الوسط (أعلى هضبة في العالم وتُعرف بـ <strong>«سقف العالم»</strong>)، وهضبة الدكن بالهند، وهضبة شبه الجزيرة العربية.',
+              '<strong>الهضاب في أوروبا:</strong> <strong>هضبة الميزيتا</strong> في إسبانيا، و<strong>هضبة فرنسا الوسطى</strong>.',
+              '<strong>السهول الفيضية في آسيا:</strong> <strong>سهول سيبيريا</strong> في الشمال (أنهار أوب، وينسي، ولينا وتتجمد شتاءً)، وسهل الصين شرقًا (نهر اليانجستي أطول أنهار آسيا)، وسهل منشوريا (نهر آمور)، وسهول دجلة والفرات غربًا، والسند جنوبًا.',
+              '<strong>السهول الفيضية في أوروبا:</strong> <strong>السهل الأوروبي العظيم</strong> وتجري فيه أنهار <strong>الفولجا</strong> (أطول أنهار أوروبا) و<strong>الدانوب</strong>.',
+              '<strong>السهول الساحلية:</strong> آسيا الأولى عالميًا في طول السواحل لاتساعها وكثرة الخلجان، بينما تتميز سواحل أوروبا <strong>بكثرة التعاريج</strong> مما ساعد على قيام <strong>المواني الطبيعية</strong>.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تفصل جبال ............... قارة آسيا عن قارة أوروبا.',
+            options: ['الهيمالايا', 'أورال', 'الألب', 'البرانس'],
+            answer: 1,
+            explanation: 'تُعد جبال أورال الحد البري الرئيسي الذي يفصل قارة آسيا عن قارة أوروبا.'
+          },
+          {
+            q: 'تُعرف هضبة ............... باسم «سقف العالم» لارتفاعها الشديد عن قمم بعض الجبال.',
+            options: ['الدكن', 'الميزيتا', 'التبت', 'فرنسا الوسطى'],
+            answer: 2,
+            explanation: 'هضبة التبت في وسط آسيا هي أعلى هضبة في العالم وتُلقب بسقف العالم.'
+          },
+          {
+            q: 'تقترب قارة أوروبا من قارة إفريقيا عند مضيق ...............',
+            options: ['باب المندب', 'بيرنج', 'جبل طارق', 'هرمز'],
+            answer: 2,
+            explanation: 'يفصل مضيق جبل طارق بين قارة أوروبا (إسبانيا) وقارة إفريقيا (المغرب).'
+          },
+          {
+            q: 'أطول أنهار قارة أوروبا هو نهر ...............',
+            options: ['اليانجستي', 'الفولجا', 'الدانوب', 'أوب'],
+            answer: 1,
+            explanation: 'نهر الفولجا هو أطول أنهار أوروبا ويصب في بحر قزوين.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: قيام العديد من المواني الطبيعية في قارة أوروبا؟', a: 'بسبب كثرة تعاريج سواحل قارة أوروبا وكثرة الجزر بها.' },
+          { q: 'بم تفسر: تأتي قارة آسيا في المرتبة الأولى بين قارات العالم من حيث أطوال سواحلها؟', a: 'بسبب اتساع مساحتها وكثرة الخلجان والأذرع المائية بها.' },
+          { q: 'ما النتائج المترتبة على: الموقع الفلكي لقارة آسيا (امتدادها من 10° جنوبًا إلى 81° شمالًا)؟', a: 'أدى إلى تنوع كبير في مناخها، وبالتالي تنوع النباتات الطبيعية والحيوانات والمحاصيل الزراعية.' }
+        ]
+      },
+      {
+        id: 'u1_l2',
+        unitId: 1,
+        unitTitle: 'الوحدة الأولى: الملامح الطبيعية لقارتي آسيا وأوروبا',
+        unitColor: 'sky',
+        type: 'lesson',
+        badge: 'الدرس الثاني',
+        title: 'المعادن ومصادر الطاقة في قارتي آسيا وأوروبا',
+        pages: 'صفحات 16 – 23',
+        concepts: [
+          { term: 'المعادن', def: 'مواد طبيعية صلبة غير عضوية تتكون في باطن القشرة الأرضية، ولها تركيب كيميائي محدد وخواص فيزيائية مميزة.' },
+          { term: 'الاحتياطي', def: 'كمية المخزون من المعدن أو مصدر الطاقة في باطن القشرة الأرضية.' },
+          { term: 'الطاقة المتجددة', def: 'الطاقة التي تُستمد من مصادر طبيعية تتجدد باستمرار ولا تنفد باستخدام الإنسان لها (مثل الطاقة الشمسية والرياح والكهرومائية).' },
+          { term: 'الطاقة غير المتجددة', def: 'الطاقة التي تُستمد من مصادر طبيعية قابلة للنفاد مع استهلاك الإنسان لها (مثل الفحم والبترول والغاز الطبيعي).' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: الثروة المعدنية في قارتي آسيا وأوروبا',
+            icon: 'fa-gem',
+            points: [
+              '<strong>معدن الحديد:</strong> عصب الصناعات الثقيلة؛ تحتل آسيا المرتبة الأولى عالميًا وأهم دولها <strong>الصين</strong> (الأولى عالميًا) ثم الهند وروسيا الاتحادية، وفي أوروبا: روسيا وأوكرانيا والسويد.',
+              '<strong>معدن النحاس:</strong> يدخل في صناعة الأسلاك والكابلات الكهربائية؛ أهم دول آسيا <strong>الصين</strong> وإندونيسيا وكازاخستان، وفي أوروبا: روسيا الاتحادية وبولندا.',
+              '<strong>معدن البوكسيت:</strong> الخام الرئيسي لصناعة <strong>الألومنيوم</strong>؛ يتركز في آسيا بالصين وإندونيسيا والهند، وفي أوروبا بروسيا واليونان. <em>(تتفوق دول أوروبا في تصنيع الألومنيوم رغم قلة إنتاجها من البوكسيت لتوافر الطاقة الكهربائية والخبرة الفنية والأسواق)</em>.',
+              '<strong>معادن أخرى:</strong> <strong>القصدير</strong> (تتصدره الصين وإندونيسيا في آسيا) و<strong>الذهب</strong> (الصين وروسيا).'
+            ]
+          },
+          {
+            heading: 'ثانياً: مصادر الطاقة غير المتجددة (الوقود الحفري)',
+            icon: 'fa-fire-flame-curved',
+            points: [
+              '<strong>الفحم:</strong> عماد الثورة الصناعية ومصدر لتوليد الكهرباء الحرارية؛ آسيا أكبر قارات العالم إنتاجًا له (أكثر من ثلاثة أرباع الإنتاج العالمي) وأولى دولها <strong>الصين</strong> والهند وإندونيسيا، وفي أوروبا: روسيا وألمانيا وبولندا.',
+              '<strong>البترول (النفط):</strong> أهم مصادر الطاقة لارتباطه بالتنمية الاقتصادية والسياسية؛ آسيا الأولى عالميًا وتتركز معظم احتياطياته في <strong>منطقة الخليج العربي</strong> (السعودية، العراق، الإمارات، الكويت، إيران) بالإضافة للصين وروسيا، وفي أوروبا يتركز في <strong>بحر الشمال</strong> (النرويج والمملكة المتحدة) وروسيا.',
+              '<strong>الغاز الطبيعي:</strong> مصدر نظيف نسبيًا ورخيص وسهل النقل؛ آسيا الأولى عالميًا (روسيا، إيران، قطر، الصين، السعودية)، وفي أوروبا: روسيا والنرويج.'
+            ]
+          },
+          {
+            heading: 'ثالثاً: مصادر الطاقة المتجددة والتنمية المستدامة',
+            icon: 'fa-solar-panel',
+            points: [
+              '<strong>الطاقة الكهرومائية:</strong> تُنتج من السدود والشلالات؛ تتصدر <strong>الصين</strong> العالم (سد الخوانق الثلاثة)، وتشتهر بها في أوروبا النرويج والسويد وفرنسا.',
+              '<strong>طاقة الرياح والطاقة الشمسية:</strong> تتوسع فيها الصين والهند في آسيا، وألمانيا وإسبانيا والمملكة المتحدة والدنمارك في أوروبا.',
+              '<strong>جهود مواجهة تحديات التعدين والطاقة:</strong> ترشيد الاستهلاك، التوسع في الطاقة الخضراء، استخدام التكنولوجيا الحديثة، وإعادة تدوير المعادن.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تُعد دولة ............... أولى دول العالم إنتاجًا لمعدن الحديد ومصدر الفحم.',
+            options: ['الهند', 'الصين', 'ألمانيا', 'السويد'],
+            answer: 1,
+            explanation: 'تتصدر الصين دول العالم في إنتاج الحديد والفحم.'
+          },
+          {
+            q: 'يُعد معدن ............... الخام الأساسي لصناعة الألومنيوم.',
+            options: ['النحاس', 'القصدير', 'البوكسيت', 'المنجنيز'],
+            answer: 2,
+            explanation: 'البوكسيت هو الخام الرئيسي الذي يُستخلص منه معدن الألومنيوم.'
+          },
+          {
+            q: 'تتركز معظم احتياطيات وإنتاج البترول في قارة آسيا بمنطقة ...............',
+            options: ['سهل سيبيريا', 'الخليج العربي', 'جزر اليابان', 'هضبة التبت'],
+            answer: 1,
+            explanation: 'تضم منطقة الخليج العربي أكبر احتياطي وإنتاج عالمي للبترول.'
+          },
+          {
+            q: 'تُعد منطقة ............... من أهم مناطق إنتاج البترول والغاز الطبيعي في قارة أوروبا.',
+            options: ['بحر الشمال', 'البحر الأدرياتي', 'بحر البلطيق', 'بحر إيجة'],
+            answer: 0,
+            explanation: 'يُعد بحر الشمال (خاصة النرويج والمملكة المتحدة) مركزًا رئيسيًا لإنتاج النفط والغاز بأوروبا.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: تفوق بعض الدول الأوروبية في صناعة الألومنيوم رغم قلة إنتاجها من خام البوكسيت؟', a: 'لتوافر المقومات اللازمة لصناعة الألومنيوم بها من طاقة كهربائية وفيرة، وخبرة علمية وفنية متطورة، وأسواق داخلية وخارجية.' },
+          { q: 'بم تفسر: توسع دول العالم في استخدام الغاز الطبيعي كبديل لمصادر الطاقة الأخرى؟', a: 'لأنه من مصادر الطاقة الأقل تلويثًا للبيئة مقارنة بالفحم والبترول، ورخيص الثمن، وسهل النقل.' },
+          { q: 'ما النتائج المترتبة على: توافر الثروات المعدنية ومصادر الطاقة في قارتي آسيا وأوروبا؟', a: 'أدى إلى قيام نهضة صناعية كبرى وتنوع الأنشطة الاقتصادية وزيادة الدخل القومي لدول القارتين.' }
+        ]
+      },
+      {
+        id: 'u1_assess',
+        unitId: 1,
+        unitTitle: 'الوحدة الأولى: الملامح الطبيعية لقارتي آسيا وأوروبا',
+        unitColor: 'sky',
+        type: 'assessment',
+        badge: 'تقييم الوحدة 1',
+        title: 'التقييم الختامي على الوحدة الأولى',
+        pages: 'صفحات 24 – 25',
+        concepts: [],
+        summarySections: [
+          {
+            heading: 'ملخص مراجعة الوحدة الأولى',
+            icon: 'fa-clipboard-check',
+            points: [
+              'يشمل هذا التقييم الختامي قياس مدى استيعابك لموقع وتضاريس قارتي آسيا وأوروبا، وتوزيع الثروات المعدنية ومصادر الطاقة المتجددة وغير المتجددة بهما.',
+              'أجب عن الأسئلة التفاعلية التالية ثم راجع الأسئلة المقالية ونموذج الإجابة المعتمد.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تفصل جبال ............... قارة آسيا عن قارة أوروبا.',
+            options: ['الهيمالايا', 'الألب', 'أورال', 'البرانس'],
+            answer: 2,
+            explanation: 'جبال أورال هي الحد الفاصل بين آسيا وأوروبا.'
+          },
+          {
+            q: 'تُعرف هضبة ............... باسم سقف العالم لارتفاعها عن قمم بعض الجبال.',
+            options: ['الدكن', 'التبت', 'الميزيتا', 'شبه الجزيرة العربية'],
+            answer: 1,
+            explanation: 'هضبة التبت تُعرف باسم سقف العالم.'
+          },
+          {
+            q: 'أطول أنهار قارة أوروبا ويصب في بحر قزوين هو نهر ...............',
+            options: ['الدانوب', 'الراين', 'الفولجا', 'السين'],
+            answer: 2,
+            explanation: 'نهر الفولجا هو أطول أنهار أوروبا ويصب في بحر قزوين.'
+          },
+          {
+            q: 'يُعد معدن ............... الخام الرئيسي لصناعة الألومنيوم.',
+            options: ['الحديد', 'النحاس', 'البوكسيت', 'القصدير'],
+            answer: 2,
+            explanation: 'البوكسيت هو الخام الرئيسي للألومنيوم.'
+          },
+          {
+            q: 'تتصدر دولة ............... دول العالم في إنتاج الطاقة الكهرومائية.',
+            options: ['مصر', 'الصين', 'إسبانيا', 'الهند'],
+            answer: 1,
+            explanation: 'تتصدر الصين دول العالم في إنتاج الطاقة الكهرومائية (مثل سد الخوانق الثلاثة).'
+          }
+        ],
+        writtenQA: [
+          { q: 'صوب ما تحته خط: تقترب قارة أوروبا من قارة إفريقيا عند (مضيق باب المندب).', a: 'التصويب: مضيق جبل طارق (بينما تقترب آسيا من إفريقيا عند مضيق باب المندب).' },
+          { q: 'بم تفسر: الأهمية الاقتصادية لمعدن الحديد؟', a: 'لأنه يُعد عصب الصناعات الثقيلة، ويدخل في صناعة الحديد والصلب، والسيارات، والآلات، والإنشاءات.' },
+          { q: 'ما النتائج المترتبة على: كثرة تعاريج سواحل قارة أوروبا؟', a: 'أدى إلى قيام العديد من المواني الطبيعية وسهولة اتصالها بالعالم الخارجي.' }
+        ]
+      },
+
+      // -------------------- الوحدة الثانية --------------------
+      {
+        id: 'u2_l1',
+        unitId: 2,
+        unitTitle: 'الوحدة الثانية: الحضارات القديمة في قارة آسيا وعلاقتها بمصر',
+        unitColor: 'amber',
+        type: 'lesson',
+        badge: 'الدرس الأول',
+        title: 'نماذج للحضارات القديمة بالشرق الأدنى',
+        pages: 'صفحات 28 – 35',
+        concepts: [
+          { term: 'الشرق الأدنى القديم', def: 'المنطقة الواقعة في غرب قارة آسيا وتشمل بلاد الرافدين (العراق القديم)، وبلاد الشام، وشبه الجزيرة العربية، والأناضول.' },
+          { term: 'بلاد الرافدين', def: 'الاسم القديم لبلاد العراق، وسُميت بذلك لوجود نهري دجلة والفرات اللذين كوّنا سهولًا فيضية خصبة.' },
+          { term: 'الزقورات', def: 'معابد مدرجة ذات طوابق متعددة اشتهرت بها حضارة بلاد الرافدين، وكانت تُستخدم للعبادة وتخزين الغلال وإدارة شؤون الدولة.' },
+          { term: 'الكتابة المسمارية', def: 'أقدم نظام كتابة اخترعه السومريون في بلاد الرافدين، سُميت بذلك لأن حروفها تشبه شكل المسمار وتُكتب على ألواح الطين الطري.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: حضارة بلاد الرافدين (العراق القديم)',
+            icon: 'fa-landmark',
+            points: [
+              '<strong>السومريون:</strong> أول من سكنوا جنوب العراق وأنشأوا دويلات مدن مستقلة (أور، لكش، سومر) واخترعوا <strong>الكتابة المسمارية</strong>.',
+              '<strong>الأكاديون:</strong> هاجروا من شبه الجزيرة العربية، ونجح ملكهم <strong>سرجون الأول</strong> في توحيد العراق لأول مرة وعاصمتها أكاد.',
+              '<strong>البابليون القدماء:</strong> أشهر ملوكهم <strong>حمورابي</strong> الذي أصدر <strong>قوانين حمورابي</strong> الشهيرة (282 مادة) لتحقيق العدالة وحفظ النظام.',
+              '<strong>الآشوريون:</strong> استقروا شمال العراق (نينوى) وكونوا إمبراطورية عسكرية قوية لكنهم سقطوا بسبب سياسة الشدة والظلم.',
+              '<strong>الكلدانيون (البابلية الحديثة):</strong> أشهر ملوكهم <strong>نبوخذ نصر الثاني</strong> مشيّد <strong>حدائق بابل المعلقة</strong>.',
+              '<strong>التواصل مع مصر:</strong> تبادل تجاري (اكتشاف أختام أسطوانية عراقية في جرزة بالجيزة)، وتأثر معماري متبادل (الزقورات والأهرامات المدرجة).'
+            ]
+          },
+          {
+            heading: 'ثانياً: الحضارة الفينيقية (في بلاد الشام)',
+            icon: 'fa-ship',
+            points: [
+              '<strong>عوامل القيام والتوجه للبحر:</strong> الموقع المتوسط، وفرة <strong>غابات الأرز</strong> لصناعة السفن، كثرة تعاريج السواحل والمواني الطبيعية، وضيق السهل الساحلي.',
+              '<strong>أشهر المدن الفينيقية:</strong> <strong>صيدا</strong>، <strong>صور</strong>، <strong>جبيل (بيبلوس)</strong> (أوثق المدن صلة بمصر وعُثر بها على أقدم أبجدية)، <strong>أوغاريت</strong>، و<strong>قرطاجة</strong> (مستوطنة فينيقية كبرى في تونس).',
+              '<strong>الإنجازات الحضارية:</strong> الريادة في التجارة البحرية، استخراج <strong>الصبغة الأرجوانية</strong>، واختراع <strong>أول أبجدية في التاريخ (22 حرفًا)</strong> التي نقلها الإغريق ومنهم إلى العالم.',
+              '<strong>التواصل مع مصر:</strong> استيراد مصر <strong>خشب الأرز</strong> منذ عصر سنفرو، وضم تحتمس الثالث لفينيقيا لتأمين حدود مصر، واستعانة الملك <strong>نخاو الثاني</strong> بالبحارة الفينيقيين للدوران حول إفريقيا (استغرقت 3 سنوات).'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'اخترع ............... الكتابة المسمارية التي كانت تُكتب على ألواح الطين الطري.',
+            options: ['الفينيقيون', 'السومريون', 'الآشوريون', 'الأكاديون'],
+            answer: 1,
+            explanation: 'السومريون في جنوب بلاد الرافدين هم مخترعو الكتابة المسمارية.'
+          },
+          {
+            q: 'تُعد حدائق بابل المعلقة من أشهر أعمال الملك الكلداني ...............',
+            options: ['حمورابي', 'سرجون الأول', 'نبوخذ نصر الثاني', 'سنفرو'],
+            answer: 2,
+            explanation: 'شيد الملك نبوخذ نصر الثاني حدائق بابل المعلقة وبرج بابل الشهير.'
+          },
+          {
+            q: 'أوثق المدن الفينيقية صلة بمصر القديمة وعُثر بها على أقدم أبجدية هي مدينة ...............',
+            options: ['جبيل', 'قرطاجة', 'أوغاريت', 'صيدا'],
+            answer: 0,
+            explanation: 'كانت جبيل (بيبلوس) بمثابة منطقة مصرية لكثرة الجالية المصرية والتبادل التجاري معها.'
+          },
+          {
+            q: 'استعان الملك المصري ............... بالبحارة الفينيقيين للقيام برحلة للدوران حول قارة إفريقيا.',
+            options: ['تحتمس الثالث', 'رمسيس الثاني', 'نخاو الثاني', 'أحمس'],
+            answer: 2,
+            explanation: 'أرسل الملك نخاو الثاني بعثة من البحارة الفينيقيين للدوران حول إفريقيا استغرقت 3 سنوات.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: توجه الفينيقيون نحو البحر وبناء حضارة تجارية كبرى؟', a: 'بسبب ضيق السهل الساحلي ووقوع الجبال خلفه، ووفرة أخشاب الأرز الصالحة لبناء السفن، وكثرة تعاريج السواحل والمواني الطبيعية، وموقعهم المتوسط.' },
+          { q: 'بم تفسر: سقوط الدولة الآشورية في بلاد الرافدين؟', a: 'بسبب سياسة الشدة والظلم والاستبداد التي اتبعها ملوكها مع الشعوب الخاضعة لهم، مما أدى لقيام الثورات ضدهم.' },
+          { q: 'ما النتائج المترتبة على: اختراع الفينيقيين للأبجدية المكونة من 22 حرفًا؟', a: 'سهّلت تسجيل المعاملات ونشر الثقافة، ونقلها الإغريق ومنهم انتشرت إلى أوروبا والعالم لتكون أساس الأبجديات الحديثة.' }
+        ]
+      },
+      {
+        id: 'u2_l2',
+        unitId: 2,
+        unitTitle: 'الوحدة الثانية: الحضارات القديمة في قارة آسيا وعلاقتها بمصر',
+        unitColor: 'amber',
+        type: 'lesson',
+        badge: 'الدرس الثاني',
+        title: 'نماذج لحضارات بلاد اليمن القديم',
+        pages: 'صفحات 36 – 41',
+        concepts: [
+          { term: 'بلاد العربية السعيدة', def: 'الاسم الذي أطلقه المؤرخون والجغرافيون القدماء على بلاد اليمن القديم نظرًا لوفرة أمطارها وخصوبة أراضيها وازدهار تجارتها وغناها بالخيرات.' },
+          { term: 'سد مأرب', def: 'أعظم منشأة هندسية ومائية في بلاد اليمن القديم، شيده السبئيون لحجز مياه السيول والأمطار واستخدامها في الري.' },
+          { term: 'الخط المسند', def: 'الكتابة القديمة التي ابتكرها واستخدمها سكان بلاد اليمن القديم في تدوين نقوشهم وتاريخهم.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: عوامل قيام حضارات بلاد اليمن القديم',
+            icon: 'fa-sun',
+            points: [
+              '<strong>الموقع الجغرافي المتميز:</strong> إشرافها على <strong>مضيق باب المندب</strong> والبحر الأحمر وبحر العرب والمحيط الهندي، مما جعلها همزة وصل تجارية بين الشرق والغرب.',
+              '<strong>وفرة الأمطار الموسمية الصيفية:</strong> ساعدت على الزراعة وبناء السدود والمدرجات الجبلية.',
+              '<strong>وفرة المنتجات التجارية النادرة:</strong> مثل <strong>البخور، واللبان، والمر، والعطور، والتوابل</strong>.'
+            ]
+          },
+          {
+            heading: 'ثانياً: أشهر ممالك بلاد اليمن القديم',
+            icon: 'fa-crown',
+            points: [
+              '<strong>مملكة معين (1300 – 630 ق.م):</strong> قامت في منطقة الجوف وعاصمتها <strong>قرناو</strong>، واعتمدت على التجارة البرية والسيطرة على طرق القوافل وإقامة محطات تجارية مثل العُلا (ديدان).',
+              '<strong>مملكة سبأ (800 – 115 ق.م):</strong> عاصمتها صرواح ثم <strong>مأرب</strong>؛ من أشهر ملوكها <strong>الملكة بلقيس</strong> والملك كرب إل وتر، وشيدت <strong>سد مأرب</strong> العظيم.',
+              '<strong>مملكة حِمْيَر (115 ق.م – 525 م):</strong> عاصمتها <strong>ظفار</strong>؛ وحدت اليمن بعد القضاء على سبأ، وشهدت أواخر أيامها <strong>انهيار سد مأرب</strong> مما أدى لهجرة القبائل اليمنية شمالاً.'
+            ]
+          },
+          {
+            heading: 'ثالثاً: مظاهر الحضارة والتواصل مع مصر',
+            icon: 'fa-archway',
+            points: [
+              '<strong>العمارة والكتابة:</strong> شيدوا القصور الشاهقة مثل <strong>قصر غمدان</strong> في صنعاء (أقدم ناطحات السحاب)، ودونوا تاريخهم بالخط <strong>المسند</strong>.',
+              '<strong>التواصل مع مصر:</strong> استوردت مصر البخور واللبان والعطور من اليمن وبلاد بونت عبر البحر الأحمر (خاصة بعثات الملكة حتشبسوت)، وعُثر في مصر على نقوش بالخط المسند اليمني.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'أطلق القدماء على بلاد اليمن القديم اسم بلاد ...............',
+            options: ['الرافدين', 'العربية السعيدة', 'الشرق الأقصى', 'المغرب الأدنى'],
+            answer: 1,
+            explanation: 'سُميت اليمن ببلاد العربية السعيدة لوفرة أمطارها وخيراتها وازدهار تجارتها.'
+          },
+          {
+            q: 'اتخذت مملكة حمير مدينة ............... عاصمة لها.',
+            options: ['قرناو', 'مأرب', 'ظفار', 'صرواح'],
+            answer: 2,
+            explanation: 'عاصمة معين قرناو، وعاصمة سبأ مأرب، وعاصمة حمير ظفار.'
+          },
+          {
+            q: 'استخدم سكان بلاد اليمن القديم ............... في تدوين نقوشهم وتاريخهم.',
+            options: ['الكتابة المسمارية', 'الخط المسند', 'الكتابة الهيروغليفية', 'الأبجدية اللاتينية'],
+            answer: 1,
+            explanation: 'الخط المسند هو الكتابة العربية الجنوبية القديمة لأهل اليمن.'
+          },
+          {
+            q: 'يُعد قصر ............... في صنعاء من أشهر القصور الشاهقة متعددة الطوابق في اليمن القديم.',
+            options: ['الحمراء', 'غمدان', 'البارثينون', 'نينوى'],
+            answer: 1,
+            explanation: 'قصر غمدان في صنعاء من أروع نماذج العمارة اليمنية القديمة.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: ازدهار التجارة في ممالك بلاد اليمن القديم؟', a: 'بسبب موقعها الجغرافي المتميز المشرف على مضيق باب المندب والبحر الأحمر وبحر العرب، ووفرة منتجاتها النادرة (البخور واللبان والعطور)، ومهارة أهلها في الملاحة وطرق القوافل.' },
+          { q: 'ما النتائج المترتبة على: انهيار سد مأرب في أواخر عصر الدولة الحميرية؟', a: 'أدى إلى غرق الأراضي وتدهور الزراعة والاقتصاد، وهجرة العديد من القبائل اليمنية إلى شمال شبه الجزيرة العربية.' }
+        ]
+      },
+      {
+        id: 'u2_l3',
+        unitId: 2,
+        unitTitle: 'الوحدة الثانية: الحضارات القديمة في قارة آسيا وعلاقتها بمصر',
+        unitColor: 'amber',
+        type: 'lesson',
+        badge: 'الدرس الثالث',
+        title: 'نماذج للحضارات القديمة بالشرق الأقصى',
+        pages: 'صفحات 42 – 47',
+        concepts: [
+          { term: 'الشرق الأقصى', def: 'الجزء الشرقي والجنوبي الشرقي من قارة آسيا، ويضم دولًا كبرى قامت بها حضارات عريقة مثل الهند والصين واليابان.' },
+          { term: 'طريق الحرير', def: 'شبكة طرق تجارية برية وبحرية قديمة ربطت الصين بدول آسيا والشرق الأدنى وحوض البحر المتوسط ومنها مصر.' },
+          { term: 'الكونفوشيوسية', def: 'فلسفة أخلاقية واجتماعية أسسها الحكيم الصيني كونفوشيوس وتدعو للفضيلة واحترام الوالدين والنظام والتعلم.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: الحضارة الهندية القديمة',
+            icon: 'fa-om',
+            points: [
+              '<strong>عوامل القيام:</strong> وجود نهري <strong>السند والجانج</strong>، والموقع البحري على المحيط الهندي، وتنوع الموارد والتوابل والقطن.',
+              '<strong>التخطيط العمراني:</strong> مدن وادي السند (<strong>موهينجو دارو</strong> وهارابا) بشوارعها المتعامدة ونظام الصرف الصحي المتطور.',
+              '<strong>الإنجازات الاقتصادية والعلمية:</strong> أول من زرعوا ونسجوا <strong>القطن</strong>، وابتكار <strong>نظام الأرقام الهندية ومفهوم الصفر</strong> والنظام العشري، وظهور ديانات كالهندوسية والبوذية.'
+            ]
+          },
+          {
+            heading: 'ثانياً: الحضارة الصينية القديمة',
+            icon: 'fa-torii-gate',
+            points: [
+              '<strong>عوامل القيام:</strong> <strong>النهر الأصفر (هوانج هو)</strong> ونهر <strong>اليانجستي</strong>، والعزلة الجغرافية النسبية التي حمتها في البدايات، وإبداع الإنسان الصيني.',
+              '<strong>أبرز المعالم والاختراعات:</strong> بناء <strong>سور الصين العظيم</strong> لحماية الحدود الشمالية، وتقديم أربعة اختراعات غيرت العالم: <strong>الورق، الطباعة، البوصلة المغناطيسية، والبارود</strong>، واحتكار <strong>الحرير الطبيعي</strong> وصناعة الخزف (البورسلين).'
+            ]
+          },
+          {
+            heading: 'ثالثاً: التواصل الحضاري مع مصر',
+            icon: 'fa-route',
+            points: [
+              'أبحرت السفن عبر البحر الأحمر والمحيط الهندي لجلب التوابل والعطور والأخشاب والمنسوجات من الهند.',
+              'وصل الحرير والخزف الصيني إلى مصر عبر <strong>طريق الحرير</strong> وموانئ البحر الأحمر (برنيس وميوس هورموس) لتُعاد تصديرها من <strong>الإسكندرية</strong> إلى حوض البحر المتوسط.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'قامت الحضارة الهندية القديمة في حوض نهر ............... ونهر الجانج.',
+            options: ['السند', 'اليانجستي', 'الفرات', 'الفولجا'],
+            answer: 0,
+            explanation: 'نشأت حضارة وادي السند في حوض نهري السند والجانج بالهند.'
+          },
+          {
+            q: 'يُنسب إلى علماء ............... ابتكار نظام الأرقام واستخدام مفهوم الصفر.',
+            options: ['اليونان', 'الهند', 'فينيقيا', 'روما'],
+            answer: 1,
+            explanation: 'ابتكر الهنود القدماء نظام الأرقام والصفر ونقلها العرب المسلمون للعالم.'
+          },
+          {
+            q: 'شيد الصينيون القدماء سور الصين العظيم لحماية حدودهم ............... من هجمات القبائل الغازية.',
+            options: ['الجنوبية', 'الشرقية', 'الشمالية', 'الغربية'],
+            answer: 2,
+            explanation: 'بُني سور الصين العظيم لحماية الحدود الشمالية للصين من الغارات.'
+          },
+          {
+            q: 'من أبرز الاختراعات الصينية القديمة التي ساعدت في تطور الملاحة البحرية ...............',
+            options: ['البوصلة المغناطيسية', 'الإسطرلاب', 'الأبجدية', 'التقويم الشمسي'],
+            answer: 0,
+            explanation: 'البوصلة المغناطيسية من أهم الاختراعات الصينية الأربعة الكبرى.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: بناء الصينيين القدماء لسور الصين العظيم؟', a: 'لحماية حدود الصين الشمالية من هجمات وغارات القبائل الغازية.' },
+          { q: 'بم تفسر: الأهمية التجارية لموقع مصر بالنسبة لتجارة الهند والصين قديمًا؟', a: 'لأن مصر تقع في قلب العالم القديم وتتحكم في البحر الأحمر والبحر المتوسط، مما جعلها ممرًا ومركزًا رئيسيًا لنقل وإعادة تصدير سلع الهند والصين إلى أوروبا.' }
+        ]
+      },
+      {
+        id: 'u2_l4',
+        unitId: 2,
+        unitTitle: 'الوحدة الثانية: الحضارات القديمة في قارة آسيا وعلاقتها بمصر',
+        unitColor: 'amber',
+        type: 'lesson',
+        badge: 'الدرس الرابع',
+        title: 'الحضارة الإسلامية',
+        pages: 'صفحات 48 – 53',
+        concepts: [
+          { term: 'الحضارة الإسلامية', def: 'أعظم حضارة عرفتها البشرية في العصور الوسطى؛ نشأت في شبه الجزيرة العربية بظهور الإسلام، وجمعت بين القيم الروحية والأخلاقية والتقدم العلمي.' },
+          { term: 'بيت الحكمة', def: 'أعظم مركز علمي وثقافي وترجمي في بغداد، أسسه هارون الرشيد وازدهر في عهد المأمون.' },
+          { term: 'البيمارستان', def: 'لفظ فارسي يعني «دار المرضى» (المستشفى)، وهو مؤسسة طبية وتعليمية متكاملة تقدم العلاج المجاني وتُدرّس فيها الطب.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: أسس قيام الحضارة الإسلامية',
+            icon: 'fa-mosque',
+            points: [
+              'ارتباطها بمبادئ الدين الإسلامي الداعية للعلم والعمل والعدل والتسامح.',
+              'محافظتها على <strong>اللغة العربية</strong> كلغة للقرآن والعلم والإدارة.',
+              'اهتمام الخلفاء بالعلم والعلماء، واستنادها لقواعد أخلاقية، و<strong>انفتاحها على الحضارات السابقة</strong> (اليونانية والفارسية والهندية والصينية) ترجمةً وتطويرًا.'
+            ]
+          },
+          {
+            heading: 'ثانياً: روائع ومظاهر الحضارة الإسلامية',
+            icon: 'fa-flask-vial',
+            points: [
+              '<strong>النظم السياسية والاقتصادية:</strong> الخلافة القائمة على الشورى، الوزارة، <strong>الدواوين</strong> (نشأت في عهد عمر بن الخطاب)، القضاء، الحسبة، وازدهار الزراعة وصناعة الورق والمنسوجات وسك العملة في عهد <strong>عبد الملك بن مروان</strong>.',
+              '<strong>أعلام العلوم:</strong> <strong>الخوارزمي</strong> (علم الجبر)، <strong>جابر بن حيان</strong> (علم الكيمياء)، <strong>الحسن بن الهيثم</strong> (البصريات والضوء)، <strong>ابن سينا</strong> والرازي وابن النفيس (الطب)، والإدريسي (الجغرافيا)، و<strong>ابن خلدون</strong> (مؤسس علم الاجتماع).'
+            ]
+          },
+          {
+            heading: 'ثالثاً: دور مصر ومعابر انتقال الحضارة الإسلامية لأوروبا',
+            icon: 'fa-graduation-cap',
+            points: [
+              '<strong>مصر منارة الحضارة:</strong> تأسيس <strong>الجامع الأزهر الشريف</strong> كأعظم منارة علمية، ودور مصر البطولي في الدفاع عن الأمة وصد الصليبيين والمغول (حطين وعين جالوت).',
+              '<strong>معابر الانتقال لأوروبا:</strong> 1) <strong>الأندلس</strong> (قرطبة وطليطلة)، 2) <strong>جزيرة صقلية</strong>، 3) <strong>بلاد الشام ومصر</strong> (أثناء الحروب الصليبية).'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'نشأت الدواوين في الدولة الإسلامية في عهد الخليفة ............... رضي الله عنه.',
+            options: ['أبي بكر الصديق', 'عمر بن الخطاب', 'عثمان بن عفان', 'علي بن أبي طالب'],
+            answer: 1,
+            explanation: 'أنشأ الخليفة عمر بن الخطاب الدواوين (مثل ديوان الجند والخراج) لتنظيم شؤون الدولة.'
+          },
+          {
+            q: 'يُعد العالم المسلم ............... مؤسس علم البصريات وواضع أسس اختراع الكاميرا.',
+            options: ['الخوارزمي', 'جابر بن حيان', 'الحسن بن الهيثم', 'ابن خلدون'],
+            answer: 2,
+            explanation: 'برع الحسن بن الهيثم في علم الضوء والبصريات وفسر كيفية الإبصار.'
+          },
+          {
+            q: 'تُعرف المستشفيات في الحضارة الإسلامية باسم ...............',
+            options: ['الزقورات', 'البيمارستانات', 'الخانات', 'الدواوين'],
+            answer: 1,
+            explanation: 'البيمارستان لفظ فارسي يعني دار المرضى أو المستشفى التعليمي.'
+          },
+          {
+            q: 'انتقلت الحضارة الإسلامية إلى قارة أوروبا عبر ثلاثة معابر رئيسية منها ...............',
+            options: ['الأندلس', 'اليابان', 'الهند', 'قرناو'],
+            answer: 0,
+            explanation: 'انتقلت الحضارة الإسلامية لأوروبا عبر الأندلس وصقلية وبلاد الشام ومصر.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: ازدهار الحضارة الإسلامية وتفوقها في العصور الوسطى؟', a: 'لارتباطها بمبادئ الدين الإسلامي الداعية للعلم والعمل والعدل، ومحافظتها على اللغة العربية، وتشجيع الخلفاء للعلماء، واستنادها لقواعد أخلاقية، وانفتاحها على الحضارات الأخرى.' },
+          { q: 'ما النتائج المترتبة على: انتقال علوم وابتكارات الحضارة الإسلامية إلى قارة أوروبا؟', a: 'أدى إلى قيام النهضة الأوروبية الحديثة وتطور العلوم والجامعات في أوروبا.' }
+        ]
+      },
+      {
+        id: 'u2_assess',
+        unitId: 2,
+        unitTitle: 'الوحدة الثانية: الحضارات القديمة في قارة آسيا وعلاقتها بمصر',
+        unitColor: 'amber',
+        type: 'assessment',
+        badge: 'تقييم الوحدة 2',
+        title: 'التقييم الختامي على الوحدة الثانية',
+        pages: 'صفحات 54 – 55',
+        concepts: [],
+        summarySections: [
+          {
+            heading: 'ملخص مراجعة الوحدة الثانية',
+            icon: 'fa-clipboard-check',
+            points: [
+              'يشمل التقييم الختامي للوحدة الثانية حضارات الشرق الأدنى (بلاد الرافدين وفينيقيا)، وحضارات بلاد اليمن القديم (معين وسبأ وحمير)، وحضارات الشرق الأقصى (الهند والصين)، والحضارة الإسلامية.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'أصدر الملك ............... قوانين مشهورة لتحقيق العدالة وحفظ النظام في بلاد الرافدين.',
+            options: ['سرجون الأول', 'حمورابي', 'نبوخذ نصر الثاني', 'سنفرو'],
+            answer: 1,
+            explanation: 'أصدر الملك حمورابي 282 مادة قانونية لتحقيق العدالة.'
+          },
+          {
+            q: 'اخترع الفينيقيون أول أبجدية في التاريخ في مدينة ...............',
+            options: ['صيدا', 'صور', 'جبيل', 'قرطاجة'],
+            answer: 2,
+            explanation: 'عُثر في جبيل على أقدم أبجدية فينيقية مكونة من 22 حرفًا.'
+          },
+          {
+            q: 'اتخذت مملكة سبأ مدينة ............... عاصمة لها وشيدت بها سدًا عظيمًا.',
+            options: ['قرناو', 'مأرب', 'ظفار', 'صنعاء'],
+            answer: 1,
+            explanation: 'اتخذت سبأ مأرب عاصمة لها وشيدت سد مأرب العظيم.'
+          },
+          {
+            q: 'يُعد العالم المسلم ............... مؤسس علم الاجتماع ومؤلف كتاب «المقدمة».',
+            options: ['ابن سينا', 'ابن خلدون', 'الرازي', 'الإدريسي'],
+            answer: 1,
+            explanation: 'عبد الرحمن بن خلدون هو مؤسس علم الاجتماع ومؤلف المقدمة.'
+          }
+        ],
+        writtenQA: [
+          { q: 'صوب ما تحته خط: استخدم سكان بلاد اليمن القديم (الكتابة المسمارية) في تدوين نقوشهم.', a: 'التصويب: الخط المسند.' },
+          { q: 'بم تفسر: تسمية بلاد اليمن القديم ببلاد العربية السعيدة؟', a: 'لوفرة أمطارها الموسمية، وخصوبة أراضيها، وازدهار تجارتها، وغناها بالخيرات والمحاصيل العطرية كالبخور واللبان.' }
+        ]
+      },
+
+      // -------------------- الوحدة الثالثة --------------------
+      {
+        id: 'u3_l1',
+        unitId: 3,
+        unitTitle: 'الوحدة الثالثة: النظم البيئية في قارتي آسيا وأوروبا',
+        unitColor: 'emerald',
+        type: 'lesson',
+        badge: 'الدرس الأول',
+        title: 'نُظم الغابات في قارتي آسيا وأوروبا',
+        pages: 'صفحات 58 – 63',
+        concepts: [
+          { term: 'النظام البيئي', def: 'مساحة من الطبيعة تضم مكونات حية (نباتات، حيوانات، كائنات دقيقة) ومكونات غير حية (ماء، هواء، تربة، مناخ) تتفاعل في توازن دقيق.' },
+          { term: 'الغابات', def: 'تجمعات شجرية ضخمة وكثيفة تنمو في المناطق غزيرة أو متوسطة الأمطار، وتُعد «رئة الأرض».' },
+          { term: 'التايجا (الغابات الصنوبرية)', def: 'الغابات المخروطية التي تنمو في النطاق الشمالي البارد لقارتي آسيا وأوروبا.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: أنواع نُظم الغابات الخمسة في آسيا وأوروبا',
+            icon: 'fa-tree',
+            points: [
+              '<strong>1. الغابات الاستوائية:</strong> في جنوب شرق آسيا (جزر إندونيسيا وماليزيا)؛ حرارة وأمطار طوال العام، أشجار كثيفة دائمة الخضرة مثل <strong>المطاط والماهوجني وجوز الهند</strong>، وحيوانات متسلقة وزواحف.',
+              '<strong>2. الغابات الموسمية:</strong> في جنوب وجنوب شرق آسيا (الهند)؛ أمطار صيفية غزيرة، أشجارها <strong>جوز الهند والخيزران وخشب الساج</strong>، وحيواناتها الفيلة والنمور.',
+              '<strong>3. غابات البحر المتوسط:</strong> سواحل جنوب أوروبا وبلاد الشام؛ حار جاف صيفًا دافئ ممطر شتاءً، أشجار دائمة الخضرة تتحمل الجفاف مثل <strong>الزيتون والبلوط الفليني والأرز</strong>.',
+              '<strong>4. الغابات النفضية:</strong> غرب ووسط أوروبا وشرق آسيا؛ <strong>تنفض أوراقها في الخريف والشتاء</strong> لشدة البرودة، أشجارها <strong>الزان والبلوط</strong>، وحيواناتها الثعالب والسناجب.',
+              '<strong>5. الغابات المخروطية (التايجا):</strong> شمال آسيا (سيبيريا) وشمال أوروبا؛ أشجار دائمة الخضرة ذات <strong>شكل مخروطي وأوراق إبرية</strong> حتى لا تتراكم الثلوج فتكسر أغصانها، مثل <strong>الصنوبر والشربين</strong>، وحيواناتها ذات الفراء كالثعلب القطبي والدب البني.'
+            ]
+          },
+          {
+            heading: 'ثانياً: الأهمية البيئية والاقتصادية والأخطار',
+            icon: 'fa-leaf',
+            points: [
+              '<strong>الأهمية:</strong> امتصاص ثاني أكسيد الكربون وإنتاج الأكسجين («رئة الأرض»)، الحد من الاحتباس الحراري، حماية التربة من الانجراف، وتوفير الأخشاب والمطاط.',
+              '<strong>الأخطار والحلول:</strong> تتعرض للقطع الجائر والحرائق والأمطار الحمضية؛ وتواجهها الدول بإقامة <strong>المحميات الطبيعية</strong>، وسن القوانين، وإعادة التشجير.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تنمو أشجار المطاط والماهوجني في نطاق الغابات ............... في جنوب شرق آسيا.',
+            options: ['المخروطية', 'الاستوائية', 'النفضية', 'البحر المتوسط'],
+            answer: 1,
+            explanation: 'أشجار المطاط والماهوجني من أهم أشجار الغابات الاستوائية الكثيفة.'
+          },
+          {
+            q: 'سُميت الغابات النفضية بهذا الاسم لأنها تنفض أوراقها في فصلي ...............',
+            options: ['الربيع والصيف', 'الخريف والشتاء', 'الصيف والخريف', 'الشتاء والربيع'],
+            answer: 1,
+            explanation: 'تنفض أشجار الزان والبلوط أوراقها في الخريف والشتاء بسبب شدة البرودة.'
+          },
+          {
+            q: 'تتخذ أشجار الغابات المخروطية شكلاً مخروطيًا وأوراقًا إبرية حتى لا ...............',
+            options: ['تتراكم فوقها الثلوج', 'تأكلها الحيوانات', 'تجف في الصيف', 'تحجب ضوء الشمس'],
+            answer: 0,
+            explanation: 'الشكل المخروطي يسمح بانزلاق الثلوج الكثيفة دون أن تنكسر الأغصان.'
+          },
+          {
+            q: 'تُعد أشجار الزيتون والبلوط الفليني من أهم أشجار غابات ...............',
+            options: ['التايجا', 'البحر المتوسط', 'الموسمية', 'الاستوائية'],
+            answer: 1,
+            explanation: 'الزيتون والبلوط الفليني أشجار دائمة الخضرة تتحمل الجفاف الصيفي في إقليم البحر المتوسط.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: يُطلق على الغابات لقب «رئة الأرض»؟', a: 'لأنها تمتص غاز ثاني أكسيد الكربون الضار من الغلاف الجوي وتُنتج غاز الأكسجين اللازم لتنفس الكائنات الحية وتنقية الهواء.' },
+          { q: 'ما النتائج المترتبة على: القطع الجائر لأشجار الغابات وحرائق الغابات؟', a: 'أدى إلى تقلص مساحة الغابات، وزيادة الاحتباس الحراري، وانجراف التربة، وفقدان التنوع البيولوجي.' }
+        ]
+      },
+      {
+        id: 'u3_l2',
+        unitId: 3,
+        unitTitle: 'الوحدة الثالثة: النظم البيئية في قارتي آسيا وأوروبا',
+        unitColor: 'emerald',
+        type: 'lesson',
+        badge: 'الدرس الثاني',
+        title: 'نُظم الحشائش ونُظم الصحاري في قارتي آسيا وأوروبا',
+        pages: 'صفحات 64 – 69',
+        concepts: [
+          { term: 'السافانا', def: 'حشائش حارة طويلة وكثيفة تتدرج في الطول والكثافة حسب كمية الأمطار، وتُعد حديقة حيوان طبيعية.' },
+          { term: 'الاستبس', def: 'حشائش معتدلة قصيرة ولينة تنمو في أواسط القارات، وتُعد مراعي طبيعية ممتازة للأغنام والماشية.' },
+          { term: 'التندرا', def: 'طحالب وحشائش سريعة النمو تظهر في المناطق القطبية المتجمدة خلال فصل الصيف القصير بعد ذوبان الجليد، وتختفي في الشتاء.' },
+          { term: 'التصحر', def: 'تدهور القدرة الإنتاجية للأراضي الزراعية والرعوية وتحولها تدريجيًا إلى أراضٍ صحراوية قاحلة.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: نُظم الحشائش في قارتي آسيا وأوروبا',
+            icon: 'fa-seedling',
+            points: [
+              '<strong>1. الحشائش الحارة (السافانا):</strong> تنمو في جنوب آسيا (هضبة الدكن بالهند)، وتخلو منها أوروبا؛ وتُعد <strong>حديقة حيوان طبيعية</strong> تعيش بها آكلات العشب (الزراف والفيلة) وآكلات اللحوم (الأسود والنمور).',
+              '<strong>2. الحشائش المعتدلة (الاستبس):</strong> تمتد من وسط آسيا حتى شرق وجنوب شرق أوروبا؛ حشائش قصيرة ولينة تُعد <strong>مراعي طبيعية ممتازة</strong> للأغنام والماشية، وتُزرع أجزاء منها بالقمح.',
+              '<strong>3. الحشائش الباردة (التندرا):</strong> في أقصى شمال آسيا وأوروبا؛ طحالب وحشائش تنمو صيفًا عقب ذوبان الجليد وتموت شتاءً، ويعيش بها حيوان <strong>الرنة (الكاريبو)</strong>.'
+            ]
+          },
+          {
+            heading: 'ثانياً: نُظم الصحاري والأخطار البيئية',
+            icon: 'fa-sun-plant-wilt',
+            points: [
+              '<strong>1. الصحاري الحارة:</strong> تتركز في غرب وجنوب غرب آسيا (صحاري شبه الجزيرة العربية مثل <strong>الربع الخالي</strong> وصحراء ثار)، وتخلو منها أوروبا؛ نباتاتها شوكية كالصبار وحيواناتها كالإبل.',
+              '<strong>2. الصحاري المعتدلة والباردة:</strong> في قلب آسيا مثل <strong>صحراء جوبي</strong> وتكلامكان.',
+              '<strong>3. الصحاري الجليدية:</strong> في أقصى شمال القارتين والجزر القطبية؛ يعيش بها الدب القطبي والفقمة.',
+              '<strong>الأخطار والحلول:</strong> يهدد <strong>الرعي الجائر</strong> و<strong>التصحر</strong> مناطق الحشائش، وتواجهها الدول بتنظيم الرعي وزراعة الأحزمة الخضراء ومصدات الرياح.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تُعد حشائش ............... حديقة حيوان طبيعية يعيش بها الزراف والأسود.',
+            options: ['الاستبس', 'التندرا', 'السافانا', 'البامباس'],
+            answer: 2,
+            explanation: 'حشائش السافانا الحارة تجمع بين الحيوانات آكلة العشب وآكلة اللحوم.'
+          },
+          {
+            q: 'تُعد حشائش ............... مراعي طبيعية ممتازة لتربية الأغنام والماشية.',
+            options: ['الاستبس', 'السافانا', 'التندرا', 'المخروطية'],
+            answer: 0,
+            explanation: 'حشائش الاستبس المعتدلة القصيرة واللينة مثالية للرعي وإنتاج اللحوم والأصواف.'
+          },
+          {
+            q: 'تخلو قارة أوروبا تمامًا من حشائش السافانا ومن ...............',
+            options: ['الغابات النفضية', 'الصحاري الحارة', 'حشائش التندرا', 'حشائش الاستبس'],
+            answer: 1,
+            explanation: 'تقع أوروبا بأكملها في العروض المعتدلة والباردة فتخلو من السافانا والصحاري الحارة.'
+          },
+          {
+            q: 'من أشهر الصحاري المعتدلة والباردة في وسط قارة آسيا صحراء ...............',
+            options: ['الربع الخالي', 'جوبي', 'الصحراء الكبرى', 'كلهاري'],
+            answer: 1,
+            explanation: 'تقع صحراء جوبي بين الصين ومنغوليا في قلب قارة آسيا.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: خلو قارة أوروبا من حشائش السافانا والصحاري الحارة؟', a: 'لأن قارة أوروبا تقع بأكملها في العروض المعتدلة والباردة الشمالية (بين دائرتي عرض 36° و71° شمالًا) ولا تمر بها العروض المدارية الحارة.' },
+          { q: 'ما النتائج المترتبة على: الرعي الجائر والتغيرات المناخية في مناطق الحشائش؟', a: 'أدى إلى تدهور المراعي الطبيعية، وفقدان التنوع البيولوجي، وتعرض مساحات واسعة لظاهرة التصحر.' }
+        ]
+      },
+      {
+        id: 'u3_l3',
+        unitId: 3,
+        unitTitle: 'الوحدة الثالثة: النظم البيئية في قارتي آسيا وأوروبا',
+        unitColor: 'emerald',
+        type: 'lesson',
+        badge: 'الدرس الثالث',
+        title: 'النظم البيئية المائية في قارتي آسيا وأوروبا',
+        pages: 'صفحات 70 – 77',
+        concepts: [
+          { term: 'الأراضي الرطبة', def: 'مناطق تغمرها المياه بشكل دائم أو موسمي (مثل المستنقعات ودلتاوات الأنهار)، وتعمل كمرشحات طبيعية لتنقية المياه.' },
+          { term: 'الشعاب المرجانية', def: 'تكوينات كلسية تفرزها كائنات بحرية دقيقة في المياه البحرية الدفيئة الضحلة، وتُعد «غابات البحار المطيرة».' },
+          { term: 'الاستزراع السمكي', def: 'تربية الأسماك والكائنات المائية في أحواض أو أقفاص مائية تحت رعاية الإنسان لزيادة الإنتاج السمكي.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: النظم البيئية المائية المالحة والعذبة',
+            icon: 'fa-water',
+            points: [
+              '<strong>النظم المالحة:</strong> المحيطات والبحار (البحر الأحمر، البحر المتوسط، بحر الشمال، الخليج العربي). تتميز المناطق الدافئة بالشعاب المرجانية وغابات المانجروف، بينما تتميز المناطق المعتدلة والباردة مثل <strong>بحر الشمال</strong> بوفرة الثروة السمكية لالتقاء التيارات البحرية الدافئة والباردة.',
+              '<strong>النظم العذبة:</strong> الأنهار الكبرى (اليانجستي، السند، دجلة والفرات، الفولجا، الدانوب) والبحيرات العذبة مثل <strong>بحيرة بايكال</strong> في سيبيريا (أعمق بحيرة عذبة في العالم) وبحيرتي لادوجا وأونيجا في أوروبا.',
+              '<strong>الأهمية الاقتصادية:</strong> تحتل <strong>قارة آسيا المرتبة الأولى عالميًا</strong> في إنتاج الأسماك، فضلاً عن استخراج البترول والغاز البحري والملاحة والسياحة.'
+            ]
+          },
+          {
+            heading: 'ثانياً: الأخطار التي تهدد النظم المائية وجهود الحماية',
+            icon: 'fa-fish',
+            points: [
+              '<strong>الأخطار:</strong> التلوث المائي وتسرب النفط، الصيد الجائر، ارتفاع حرارة المياه مما يسبب <strong>ابيضاض الشعاب المرجانية</strong>، وتجفيف (ردم) الأراضي الرطبة.',
+              '<strong>الجهود:</strong> إنشاء <strong>المحميات البحرية</strong>، معالجة مياه الصرف، تنظيم الصيد، والتوسع في <strong>الاستزراع السمكي</strong>.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تُعد بحيرة ............... في سيبيريا أعمق بحيرة عذبة في العالم.',
+            options: ['قزوين', 'بايكال', 'لادوجا', 'فيكتوريا'],
+            answer: 1,
+            explanation: 'بحيرة بايكال في سيبيريا بآسيا هي أعمق بحيرة عذبة في العالم.'
+          },
+          {
+            q: 'تحتل قارة ............... المرتبة الأولى عالميًا في إنتاج الأسماك.',
+            options: ['أوروبا', 'آسيا', 'إفريقيا', 'أستراليا'],
+            answer: 1,
+            explanation: 'تتصدر آسيا الإنتاج السمكي العالمي بفضل دول مثل الصين وإندونيسيا والهند واليابان.'
+          },
+          {
+            q: 'يؤدي ارتفاع درجة حرارة مياه البحار بسبب الاحتباس الحراري إلى ظاهرة ............... الشعاب المرجانية.',
+            options: ['نمو', 'ابيضاض', 'تكاثر', 'تجمد'],
+            answer: 1,
+            explanation: 'ارتفاع حرارة المياه يسبب طرد الطحالب التكافلية وحدوث ابيضاض الشعاب المرجانية وموتها.'
+          },
+          {
+            q: 'تعمل ............... كمرشحات طبيعية لتنقية المياه من الملوثات وتمتص مياه الفيضانات.',
+            options: ['الصحاري الجليدية', 'الأراضي الرطبة', 'الهضاب المرتفعة', 'السهول الصحراوية'],
+            answer: 1,
+            explanation: 'الأراضي الرطبة كالمستنقعات والدلتاوات تنقي المياه طبيعيًا وتحمي من الفيضانات.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: وفرة الثروة السمكية في بحر الشمال وشمال المحيطين الأطلنطي والهادي؟', a: 'بسبب التقاء التيارات البحرية الدافئة والباردة مما يساعد على توافر العوالق النباتية والحيوانية (الغذاء الرئيسي للأسماك).' },
+          { q: 'بم تفسر: توسع دول آسيا وأوروبا في مشروعات الاستزراع السمكي؟', a: 'لزيادة الإنتاج السمكي، وسد الفجوة الغذائية نتيجة زيادة السكان، وتقليل الضغط على المصايد الطبيعية.' }
+        ]
+      },
+      {
+        id: 'u3_assess',
+        unitId: 3,
+        unitTitle: 'الوحدة الثالثة: النظم البيئية في قارتي آسيا وأوروبا',
+        unitColor: 'emerald',
+        type: 'assessment',
+        badge: 'تقييم الوحدة 3',
+        title: 'التقييم الختامي على الوحدة الثالثة',
+        pages: 'صفحات 78 – 79',
+        concepts: [],
+        summarySections: [
+          {
+            heading: 'ملخص مراجعة الوحدة الثالثة',
+            icon: 'fa-clipboard-check',
+            points: [
+              'يشمل التقييم الختامي للوحدة الثالثة نُظم الغابات الخمسة، ونُظم الحشائش (السافانا، الاستبس، التندرا)، ونُظم الصحاري، والنظم البيئية المائية المالحة والعذبة.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'تنفض أشجار الغابات ............... أوراقها في فصلي الخريف والشتاء بسبب شدة البرودة.',
+            options: ['الاستوائية', 'النفضية', 'المخروطية', 'الموسمية'],
+            answer: 1,
+            explanation: 'الغابات النفضية سُميت بذلك لأنها تنفض أوراقها في الخريف والشتاء.'
+          },
+          {
+            q: 'تدهور القدرة الإنتاجية للأراضي الزراعية والرعوية وتحولها إلى صحاري يُعرف بـ ...............',
+            options: ['الاحتباس الحراري', 'التصحر', 'التعرية', 'الاستزراع'],
+            answer: 1,
+            explanation: 'التصحر هو تدهور خصوبة وإنتاجية الأراضي وتحولها إلى صحاري.'
+          },
+          {
+            q: 'تقع بحيرة بايكال العذبة في شمال قارة ...............',
+            options: ['أوروبا', 'آسيا', 'إفريقيا', 'أستراليا'],
+            answer: 1,
+            explanation: 'تقع بحيرة بايكال في إقليم سيبيريا بشمال قارة آسيا.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: الأهمية البيئية والاقتصادية للشعاب المرجانية؟', a: 'بيئيًا: تُعد موطنًا لآلاف الأنواع من الكائنات البحرية وتحافظ على التوازن البيئي وتحمي الشواطئ. واقتصاديًا: تُعد مصدر جذب رئيسي للسياحة البحرية (سياحة الغوص).' },
+          { q: 'ما النتائج المترتبة على: ارتفاع درجة حرارة مياه البحار والمحيطات؟', a: 'أدى إلى حدوث ظاهرة ابيضاض الشعاب المرجانية وموتها، وذوبان الجليد القطبي وارتفاع منسوب مياه البحار.' }
+        ]
+      },
+
+      // -------------------- الوحدة الرابعة --------------------
+      {
+        id: 'u4_l1',
+        unitId: 4,
+        unitTitle: 'الوحدة الرابعة: الحضارات القديمة في قارة أوروبا وعلاقتها بمصر',
+        unitColor: 'indigo',
+        type: 'lesson',
+        badge: 'الدرس الأول',
+        title: 'الحضارة اليونانية (الإغريقية)',
+        pages: 'صفحات 82 – 87',
+        concepts: [
+          { term: 'نظام دولة المدينة', def: 'نظام سياسي عُرف في بلاد اليونان القديمة، حيث انقسمت البلاد إلى مدن مستقلة لكل منها حكومتها وقوانينها وجيشها بسبب الطبيعة الجبلية.' },
+          { term: 'الديمقراطية (حكم الشعب)', def: 'نظام سياسي نشأ وتطور في مدينة أثينا اليونانية، يمنح المواطنين الأحرار حق المشاركة في الحكم وصنع القرار.' },
+          { term: 'الحضارة الهلينستية', def: 'مزيج حضاري جمع بين الحضارة اليونانية والحضارات الشرقية القديمة (خاصة المصرية)، نشأ بعد فتوحات الإسكندر الأكبر واتخذ من الإسكندرية مركزًا له.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: عوامل القيام وأشهر المدن اليونانية',
+            icon: 'fa-landmark-dome',
+            points: [
+              '<strong>العوامل:</strong> الموقع البحري المتوسط، التضاريس الجبلية (التي أدت لنظام <strong>دولة المدينة</strong>)، وكثرة الجزر والسواحل المتعرجة (التي دفعتهم للتجارة والملاحة).',
+              '<strong>مدينة أثينا:</strong> تقع في إقليم أتيكا، اعتمدت على التجارة، واشتهرت <strong>بالنظام الديمقراطي</strong> (تطور على يد صولون وبيريكليس) وبالعلم والفلسفة.',
+              '<strong>مدينة أسبرطة:</strong> تقع في إقليم البيلوبونيز، اعتمدت على الزراعة، واشتهرت <strong>بالنظام العسكري الصارم</strong>.',
+              '<strong>مقدونيا والإسكندر الأكبر:</strong> وحّد فيليب الثاني المدن اليونانية بعد أن أضعفتها حروب البيلوبونيز، ثم كوّن ابنه <strong>الإسكندر الأكبر</strong> إمبراطورية كبرى ونشر الحضارة الهلينستية.'
+            ]
+          },
+          {
+            heading: 'ثانياً: الإنجازات الفكرية والتواصل مع مصر',
+            icon: 'fa-scroll',
+            points: [
+              '<strong>الفلسفة والعلوم:</strong> الفلاسفة <strong>سقراط وأفلاطون وأرسطو</strong>، والمؤرخ <strong>هيرودوت</strong> («أبو التاريخ» وصاحب مقولة «مصر هبة النيل»)، و<strong>أبقراط</strong> («أبو الطب»)، وفيثاغورس وإقليدس وأرشميدس، ومعبد <strong>البارثينون</strong>، والألعاب الأوليمبية.',
+              '<strong>التواصل مع مصر:</strong> تأسيس التجار اليونانيين لمدينة <strong>نوقراطيس</strong> في غرب الدلتا في عصر الأسرة 26، وزيارة الفلاسفة والعلماء اليونانيين لمصر للتعلم، وتأسيس الإسكندر الأكبر لمدينة <strong>الإسكندرية</strong> عام 332 ق.م لتصبح عاصمة للحضارة الهلينستية في عصر البطالمة.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'اشتهرت مدينة ............... اليونانية بنظامها الديمقراطي واهتمامها بالفلسفة والفنون.',
+            options: ['أسبرطة', 'أثينا', 'مقدونيا', 'أوليمبيا'],
+            answer: 1,
+            explanation: 'أثينا هي مهد الديمقراطية ومنارة الفلسفة والعلوم في اليونان القديمة.'
+          },
+          {
+            q: 'يُلقب المؤرخ اليوناني ............... بـ «أبو التاريخ» وقد زار مصر وكتب عنها.',
+            options: ['سقراط', 'أبقراط', 'هيرودوت', 'أرسطو'],
+            answer: 2,
+            explanation: 'هيرودوت هو أبو التاريخ ومؤلف كتاب تمحيص الأخبار الذي وصف فيه مصر.'
+          },
+          {
+            q: 'أسس التجار اليونانيون مدينة ............... في غرب دلتا مصر خلال عصر الأسرة السادسة والعشرين.',
+            options: ['الإسكندرية', 'نوقراطيس', 'ممفيس', 'طيبة'],
+            answer: 1,
+            explanation: 'نوقراطيس (بمحافظة البحيرة حاليًا) أُسست كمدينة تجارية يونانية في مصر.'
+          },
+          {
+            q: 'تُعد الحضارة ............... مزيجًا بين الحضارة اليونانية والحضارات الشرقية القديمة (خاصة المصرية).',
+            options: ['المسمارية', 'الهلينستية', 'اللاتينية', 'الفينيقية'],
+            answer: 1,
+            explanation: 'الحضارة الهلينستية هي ثمرة امتزاج الثقافة اليونانية بالحضارة المصرية والشرقية.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: ظهور نظام «دولة المدينة» في بلاد اليونان القديمة؟', a: 'بسبب الطبيعة الجبلية الوعرة التي فصلت بين مناطق اليونان وصعّبت الاتصال البري بينها، مما أدى لاستقلال كل مدينة بحكمها وقوانينها.' },
+          { q: 'ما النتائج المترتبة على: فتوحات الإسكندر الأكبر في الشرق ومصر؟', a: 'أدت إلى تكوين إمبراطورية واسعة، ونشر الثقافة اليونانية وامتزاجها بالحضارات الشرقية وظهور الحضارة الهلينستية، وتأسيس مدينة الإسكندرية في مصر.' }
+        ]
+      },
+      {
+        id: 'u4_l2',
+        unitId: 4,
+        unitTitle: 'الوحدة الرابعة: الحضارات القديمة في قارة أوروبا وعلاقتها بمصر',
+        unitColor: 'indigo',
+        type: 'lesson',
+        badge: 'الدرس الثاني',
+        title: 'الحضارة الرومانية',
+        pages: 'صفحات 88 – 93',
+        concepts: [
+          { term: 'النظام الجمهوري (في روما)', def: 'نظام حكم قام في روما عام 509 ق.م بعد إسقاط الملكية، وتوزعت فيه السلطة بين القنصلين ومجلس الشيوخ (السيناتو) ومجالس العامة.' },
+          { term: 'السلام الروماني (باكس رومانا)', def: 'فترة من الاستقرار والأمن والازدهار الاقتصادي والعمراني شهدتها الإمبراطورية الرومانية لنحو قرنين، بدأت في عهد الإمبراطور أغسطس.' },
+          { term: 'الألواح الاثنا عشر', def: 'أول مدونة قانونية مكتوبة في تاريخ روما القديمة، وُضعت لحماية حقوق طبقة العامة وتنظيم العدالة.' }
+        ],
+        summarySections: [
+          {
+            heading: 'أولاً: عوامل القيام ومراحل نظام الحكم في روما',
+            icon: 'fa-shield-halved',
+            points: [
+              '<strong>عوامل القيام:</strong> الموقع المتوسط في شبه الجزيرة الإيطالية بقلب البحر المتوسط، السهول الخصبة، الحماية الطبيعية لجبال الألب شمالاً، والتنظيم العسكري والإداري.',
+              '<strong>1. العصر الملكي (753 – 509 ق.م):</strong> حكم ملكي مستبد انتهى بثورة الرومان.',
+              '<strong>2. العصر الجمهوري (509 – 27 ق.م):</strong> يحكمها قنصلان منتخبان ومجلس الشيوخ؛ وشهد وضع <strong>قوانين الألواح الاثني عشر</strong> والتوسع في حوض البحر المتوسط والسيطرة على مصر.',
+              '<strong>3. العصر الإمبراطوري (27 ق.م – 476 م):</strong> بدأ بالإمبراطور <strong>أوكتافيوس (أغسطس)</strong> وشهد فترة <strong>السلام الروماني</strong>، ثم انقسمت الإمبراطورية عام 395م إلى غربية (روما وسقطت 476م) وشرقية بيزنطية (القسطنطينية).'
+            ]
+          },
+          {
+            heading: 'ثانياً: الإنجازات الحضارية والتواصل مع مصر',
+            icon: 'fa-building-columns',
+            points: [
+              '<strong>القانون والعمارة والثقافة:</strong> <strong>القانون الروماني</strong> أساس التشريعات الحديثة، مدرج <strong>الكولوسيوم</strong>، معبد البانثيون، قنوات المياه المعلقة، اللغة اللاتينية، و<strong>التقويم اليولياني</strong>.',
+              '<strong>التواصل مع مصر:</strong> أصبحت مصر ولاية رومانية عام <strong>30 ق.م</strong> بعد <strong>معركة أكتيوم البحرية (31 ق.م)</strong>؛ وعُرفت مصر باسم <strong>«مخزن الغلال»</strong> لروما، ونقل يوليوس قيصر <strong>التقويم الشمسي المصري</strong> بمساعدة العالم السكندري <strong>سوسيجينيس</strong>، وظلت الإسكندرية ثاني أهم مدينة في الإمبراطورية.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'نشأت الحضارة الرومانية في شبه الجزيرة ............... في قلب البحر المتوسط.',
+            options: ['الإيطالية', 'البلقان', 'الأيبيرية', 'العربية'],
+            answer: 0,
+            explanation: 'قامت روما على ضفاف نهر التيبر في شبه الجزيرة الإيطالية.'
+          },
+          {
+            q: 'أصبحت مصر ولاية رومانية عام 30 ق.م بعد معركة ...............',
+            options: ['مجدو', 'أكتيوم البحرية', 'حطين', 'عين جالوت'],
+            answer: 1,
+            explanation: 'انتصر أوكتافيوس على أنطونيوس وكليوباترا في أكتيوم البحرية عام 31 ق.م وأصبحت مصر ولاية رومانية عام 30 ق.م.'
+          },
+          {
+            q: 'عُرفت مصر في العصر الروماني باسم «...............» لروما.',
+            options: ['سقف العالم', 'مخزن الغلال', 'رئة الأرض', 'العربية السعيدة'],
+            answer: 1,
+            explanation: 'كانت مصر تمد روما بشحنات القمح السنوية لإطعام سكانها.'
+          },
+          {
+            q: 'استعان يوليوس قيصر بالعالم السكندري ............... لنقل التقويم الشمسي المصري ووضع التقويم اليولياني.',
+            options: ['سوسيجينيس', 'أرشميدس', 'إقليدس', 'هيرودوت'],
+            answer: 0,
+            explanation: 'العالم الفلكي السكندري سوسيجينيس هو الذي عدّل التقويم الروماني استنادًا للتقويم المصري.'
+          }
+        ],
+        writtenQA: [
+          { q: 'بم تفسر: ازدهار التجارة الداخلية والخارجية في الإمبراطورية الرومانية؟', a: 'بسبب استتباب الأمن (السلام الروماني)، وتأمين الملاحة في البحر المتوسط، وإنشاء شبكة واسعة من الطرق المرصوفة، وتوحيد العملة (الدينار الروماني).' },
+          { q: 'ما النتائج المترتبة على: معركة أكتيوم البحرية عام 31 ق.م؟', a: 'انتصار أوكتافيوس على أنطونيوس وكليوباترا السابعة، وانتهاء دولة البطالمة، وأصبحت مصر ولاية رومانية عام 30 ق.م.' }
+        ]
+      },
+      {
+        id: 'u4_assess',
+        unitId: 4,
+        unitTitle: 'الوحدة الرابعة: الحضارات القديمة في قارة أوروبا وعلاقتها بمصر',
+        unitColor: 'indigo',
+        type: 'assessment',
+        badge: 'تقييم الوحدة 4',
+        title: 'التقييم الختامي على الوحدة الرابعة',
+        pages: 'صفحات 94 – 95',
+        concepts: [],
+        summarySections: [
+          {
+            heading: 'ملخص مراجعة الوحدة الرابعة',
+            icon: 'fa-clipboard-check',
+            points: [
+              'يشمل التقييم الختامي للوحدة الرابعة الحضارة اليونانية (أثينا وأسبرطة والإسكندر الأكبر والحضارة الهلينستية) والحضارة الرومانية ومظاهر التواصل الحضاري الوثيق مع مصر.'
+            ]
+          }
+        ],
+        quiz: [
+          {
+            q: 'اشتهرت مدينة ............... اليونانية بنظامها العسكري الصارم.',
+            options: ['أثينا', 'أسبرطة', 'مقدونيا', 'أوليمبيا'],
+            answer: 1,
+            explanation: 'أسبرطة قامت على التربية العسكرية الصارمة لإعداد المقاتلين.'
+          },
+          {
+            q: 'يُعد مدرج ............... من أشهر المعالم المعمارية الرومانية في روما.',
+            options: ['البارثينون', 'الكولوسيوم', 'الأكروبول', 'الزقورة'],
+            answer: 1,
+            explanation: 'مدرج الكولوسيوم في روما من أعظم إنجازات العمارة الرومانية.'
+          },
+          {
+            q: 'نقل الرومان عن مصر ............... ووضعوا التقويم اليولياني.',
+            options: ['الكتابة المسمارية', 'التقويم الشمسي', 'الخط المسند', 'الأبجدية'],
+            answer: 1,
+            explanation: 'أخذ الرومان التقويم الشمسي المصري الدقيق وطوروه إلى التقويم اليولياني.'
+          }
+        ],
+        writtenQA: [
+          { q: 'صوب ما تحته خط: تُعد الحضارة الهلينستية مزيجًا بين (الحضارة الرومانية والحضارة الصينية).', a: 'التصويب: مزيجًا بين الحضارة اليونانية والحضارات الشرقية القديمة (خاصة المصرية).' },
+          { q: 'بم تفسر: أهمية مدينة الإسكندرية في العصرين البطلمي والروماني؟', a: 'لأنها كانت عاصمة للحضارة الهلينستية في العالم، وظلت ثاني أهم مدينة في الإمبراطورية الرومانية بعد روما ومنارة للعلم والفلسفة والتجارة بفضل جامعتها ومكتبتها ومينائها.' }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // إدارة الحالة (State Management) والتخزين المحلي
+    // =========================================================================
+    let currentView = 'home'; // 'home' | 'glossary' | lesson.id
+    let currentTab = 'summary'; // 'summary' | 'quiz' | 'written'
+    let completedItems = JSON.parse(localStorage.getItem('ss_g8_completed') || '[]');
+    let studentProfile = JSON.parse(localStorage.getItem('ss_g8_student') || '{"name":"","classroom":""}');
+    let userAnswers = {}; // تخزين إجابات الطالب في الاختبار الحالي
+
+    // التحقق من عرض شاشة البداية قبل الصفحة الرئيسية
+    function initWelcomeGate() {
+      const gate = document.getElementById('welcomeGateScreen');
+      const nameInput = document.getElementById('gateStudentName');
+      const classInput = document.getElementById('gateStudentClass');
+      if (nameInput) nameInput.value = studentProfile.name || '';
+      if (classInput) classInput.value = studentProfile.classroom || '';
+
+      if (studentProfile.name && studentProfile.classroom) {
+        gate.classList.add('hidden');
+      } else {
+        gate.classList.remove('hidden');
+      }
+    }
+
+    // الدخول من شاشة البداية إلى الصفحة الرئيسية
+    function enterPlatform(event) {
+      if (event) event.preventDefault();
+      const nameVal = document.getElementById('gateStudentName').value.trim();
+      const classVal = document.getElementById('gateStudentClass').value.trim();
+      if (!nameVal || !classVal) return;
+
+      studentProfile = { name: nameVal, classroom: classVal };
+      localStorage.setItem('ss_g8_student', JSON.stringify(studentProfile));
+      updateStudentHeaderBadge();
+
+      document.getElementById('welcomeGateScreen').classList.add('hidden');
+      renderHome();
+      showToast(`أهلاً بك يا ${nameVal} في منصة الدراسات الاجتماعية!`, 'fa-user-check text-emerald-400');
+    }
+
+    // إعادة فتح شاشة البيانات لتعديل الاسم أو الفصل
+    function openWelcomeGate() {
+      const gate = document.getElementById('welcomeGateScreen');
+      document.getElementById('gateStudentName').value = studentProfile.name || '';
+      document.getElementById('gateStudentClass').value = studentProfile.classroom || '';
+      gate.classList.remove('hidden');
+    }
+
+    function updateStudentHeaderBadge() {
+      const badge = document.getElementById('headerStudentBadge');
+      if (!badge) return;
+      if (studentProfile.name || studentProfile.classroom) {
+        const parts = [];
+        if (studentProfile.name) parts.push(`الطالب/ة: ${studentProfile.name}`);
+        if (studentProfile.classroom) parts.push(`فصل: ${studentProfile.classroom}`);
+        badge.textContent = parts.join(' • ');
+      } else {
+        badge.textContent = 'الصف الثاني الإعدادي • الترم الأول';
+      }
+    }
+
+    // تهيئة الوضع الليلي
+    function initTheme() {
+      const savedTheme = localStorage.getItem('ss_g8_theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+      }
+    }
+
+    function toggleDarkMode() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ss_g8_theme', isDark ? 'dark' : 'light');
+      document.getElementById('themeIcon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    }
+
+    // إظهار رسالة تنبيه أنيقة (Toast)
+    function showToast(msg, iconClass = 'fa-circle-check text-emerald-400') {
+      const box = document.getElementById('toastBox');
+      document.getElementById('toastMessage').textContent = msg;
+      document.getElementById('toastIcon').className = `fa-solid ${iconClass} text-lg`;
+      box.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        box.classList.add('translate-y-20', 'opacity-0');
+      }, 2800);
+    }
+
+    // فتح/إغلاق القائمة الجانبية على الموبايل
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      sidebar.classList.toggle('translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+
+    // تبديل حالة إتمام الدرس
+    function toggleComplete(id) {
+      if (completedItems.includes(id)) {
+        completedItems = completedItems.filter(item => item !== id);
+        showToast('تم إلغاء علامة الإتمام للدرس', 'fa-rotate-left text-amber-400');
+      } else {
+        completedItems.push(id);
+        showToast('أحسنت! تم تسجيل إتمام الدرس بنجاح', 'fa-circle-check text-emerald-400');
+      }
+      localStorage.setItem('ss_g8_completed', JSON.stringify(completedItems));
+      updateProgressUI();
+      renderSidebar();
+      if (currentView !== 'home' && currentView !== 'glossary') {
+        renderLesson(currentView);
+      }
+    }
+
+    function updateProgressUI() {
+      const total = CURRICULUM_DATA.length;
+      const done = completedItems.length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById('progressBadge').textContent = `${done} / ${total} مكتمل`;
+      document.getElementById('progressPercent').textContent = `${pct}%`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    // =========================================================================
+    // بناء القائمة الجانبية (فهرس المنهج)
+    // =========================================================================
+    function renderSidebar() {
+      const nav = document.getElementById('sidebarNav');
+      const units = [
+        { id: 1, title: 'الوحدة 1: الملامح الطبيعية لآسيا وأوروبا', color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-50 dark:bg-sky-950/40' },
+        { id: 2, title: 'الوحدة 2: الحضارات القديمة في آسيا', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-950/40' },
+        { id: 3, title: 'الوحدة 3: النظم البيئية في آسيا وأوروبا', color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-950/40' },
+        { id: 4, title: 'الوحدة 4: الحضارات القديمة في أوروبا', color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-950/40' }
+      ];
+
+      let html = `
+        <button onclick="selectItem('home')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-bold transition ${currentView === 'home' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}">
+          <i class="fa-solid fa-house"></i>
+          <span>الصفحة الرئيسية للمنهج</span>
+        </button>
+      `;
+
+      units.forEach(u => {
+        const items = CURRICULUM_DATA.filter(d => d.unitId === u.id);
+        html += `
+          <div class="pt-2">
+            <div class="px-3 py-1.5 rounded-lg ${u.bg} ${u.color} text-xs font-extrabold mb-1.5">
+              ${u.title}
+            </div>
+            <div class="space-y-1">
+              ${items.map(item => {
+                const isActive = currentView === item.id;
+                const isDone = completedItems.includes(item.id);
+                const isAssess = item.type === 'assessment';
+                return `
+                  <button onclick="selectItem('${item.id}')" class="w-full text-right flex items-start justify-between gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm transition ${
+                    isActive
+                      ? 'bg-slate-900 dark:bg-sky-600 text-white font-bold shadow-sm'
+                      : isAssess
+                        ? 'text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/30 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold'
+                  }">
+                    <span class="flex items-start gap-2 leading-snug">
+                      <i class="fa-solid ${isAssess ? 'fa-star text-amber-400' : 'fa-book-open opacity-70'} mt-1 text-xs"></i>
+                      <span>${item.title}</span>
+                    </span>
+                    ${isDone ? '<i class="fa-solid fa-circle-check text-emerald-500 mt-1 shrink-0" title="مكتمل"></i>' : ''}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      nav.innerHTML = html;
+    }
+
+    // التنقل بين الصفحات والدروس
+    function selectItem(id) {
+      currentView = id;
+      currentTab = 'summary';
+      userAnswers = {};
+      renderSidebar();
+
+      // إغلاق قائمة الموبايل إن كانت مفتوحة
+      const sidebar = document.getElementById('sidebar');
+      if (!sidebar.classList.contains('translate-x-full') && window.innerWidth < 1024) {
+        toggleSidebar();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (id === 'home') {
+        renderHome();
+      } else if (id === 'glossary') {
+        renderGlossary();
+      } else {
+        renderLesson(id);
+      }
+    }
+
+    // =========================================================================
+    // عرض الصفحة الرئيسية
+    // =========================================================================
+    function renderHome() {
+      const main = document.getElementById('mainContent');
+      const unitsMeta = [
+        {
+          id: 1,
+          title: 'الوحدة الأولى: الملامح الطبيعية لقارتي آسيا وأوروبا',
+          desc: 'الموقع الفلكي والجغرافي، التضاريس (الجبال والهضاب والسهول)، الثروة المعدنية ومصادر الطاقة المتجددة وغير المتجددة.',
+          icon: 'fa-earth-asia',
+          gradient: 'from-sky-500 to-blue-700',
+          border: 'border-sky-200 dark:border-sky-800/50'
+        },
+        {
+          id: 2,
+          title: 'الوحدة الثانية: الحضارات القديمة في قارة آسيا وعلاقتها بمصر',
+          desc: 'حضارة بلاد الرافدين وفينيقيا، حضارات بلاد اليمن القديم، حضارتا الهند والصين، والحضارة الإسلامية ومعابر انتقالها لأوروبا.',
+          icon: 'fa-landmark',
+          gradient: 'from-amber-500 to-orange-600',
+          border: 'border-amber-200 dark:border-amber-800/50'
+        },
+        {
+          id: 3,
+          title: 'الوحدة الثالثة: النظم البيئية في قارتي آسيا وأوروبا',
+          desc: 'نُظم الغابات الخمسة، نُظم الحشائش (السافانا والاستبس والتندرا) والصحاري، والنظم البيئية المائية المالحة والعذبة.',
+          icon: 'fa-tree',
+          gradient: 'from-emerald-500 to-teal-700',
+          border: 'border-emerald-200 dark:border-emerald-800/50'
+        },
+        {
+          id: 4,
+          title: 'الوحدة الرابعة: الحضارات القديمة في قارة أوروبا وعلاقتها بمصر',
+          desc: 'الحضارة اليونانية (أثينا وأسبرطة والإسكندر الأكبر والحضارة الهلينستية) والحضارة الرومانية وتواصلهما الحضاري مع مصر.',
+          icon: 'fa-building-columns',
+          gradient: 'from-indigo-500 to-purple-700',
+          border: 'border-indigo-200 dark:border-indigo-800/50'
+        }
+      ];
+
+      main.innerHTML = `
+        <div class="tab-fade space-y-8">
+          <!-- بانر الترحيب -->
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-slate-900 via-sky-900 to-indigo-950 text-white p-6 sm:p-10 shadow-xl">
+            <div class="relative z-10 max-w-3xl space-y-4">
+              <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-xs text-sky-200 text-xs font-bold">
+                <i class="fa-solid fa-sparkles text-amber-300"></i>
+                المنهج المطور • الفصل الدراسي الأول
+              </span>
+              <h2 class="text-2xl sm:text-4xl font-black leading-tight">
+                منصة الدراسات الاجتماعية التفاعلية
+              </h2>
+              <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                دليلك الشامل والمُدقق لدراسة جميع وحدات ودروس كتاب الدراسات الاجتماعية للصف الثاني الإعدادي، مع ملخصات مركزة، وبطاقات للمصطلحات، واختبارات تفاعلية ذات تصحيح فوري ونماذج إجابة معتمدة.
+              </p>
+              <div class="pt-2 flex flex-wrap gap-3">
+                <button onclick="selectItem('u1_l1')" class="px-5 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-sm shadow-lg transition flex items-center gap-2">
+                  <i class="fa-solid fa-play"></i>
+                  <span>ابدأ بالدرس الأول</span>
+                </button>
+                <button onclick="selectItem('glossary')" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm backdrop-blur-xs transition flex items-center gap-2">
+                  <i class="fa-solid fa-book-bookmark text-amber-300"></i>
+                  <span>بنك المفاهيم والمصطلحات</span>
+                </button>
+              </div>
+            </div>
+            <i class="fa-solid fa-globe-africa absolute -left-10 -bottom-12 text-[220px] text-white/5 pointer-events-none"></i>
+          </div>
+
+          <!-- إحصائيات سريعة -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+              <div>
+                <div class="text-xl font-black">4 وحدات</div>
+                <div class="text-xs text-slate-500 font-semibold">جغرافيا وتاريخ</div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <div>
+                <div class="text-xl font-black">11 درسًا</div>
+                <div class="text-xs text-slate-500 font-semibold">ملخصات شاملة</div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-clipboard-check"></i>
+              </div>
+              <div>
+                <div class="text-xl font-black">4 تقييمات</div>
+                <div class="text-xs text-slate-500 font-semibold">ختامية للوحدات</div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-circle-question"></i>
+              </div>
+              <div>
+                <div class="text-xl font-black">+90 سؤال</div>
+                <div class="text-xs text-slate-500 font-semibold">تفاعلي ومقالي</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- بطاقات الوحدات الدراسية -->
+          <div class="space-y-4">
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-map text-sky-600"></i>
+              <span>استكشف الوحدات الدراسية</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              ${unitsMeta.map(u => {
+                const unitItems = CURRICULUM_DATA.filter(d => d.unitId === u.id);
+                return `
+                  <div class="bg-white dark:bg-slate-900 rounded-3xl border ${u.border} shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+                    <div class="p-5 bg-gradient-to-l ${u.gradient} text-white flex items-center gap-4">
+                      <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-2xl shrink-0">
+                        <i class="fa-solid ${u.icon}"></i>
+                      </div>
+                      <h4 class="font-extrabold text-base sm:text-lg leading-snug">${u.title}</h4>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${u.desc}</p>
+                      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                        ${unitItems.map(item => `
+                          <button onclick="selectItem('${item.id}')" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 hover:bg-sky-50 dark:hover:bg-slate-800 text-right transition group">
+                            <span class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-sky-600 dark:group-hover:text-sky-400">
+                              <span class="text-xs px-2 py-0.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 ml-2">${item.badge}</span>
+                              ${item.title}
+                            </span>
+                            <div class="flex items-center gap-2">
+                              ${completedItems.includes(item.id) ? '<i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>' : ''}
+                              <i class="fa-solid fa-arrow-left text-slate-400 group-hover:text-sky-500 text-xs"></i>
+                            </div>
+                          </button>
+                        `).join('')}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // عرض بنك المفاهيم والمصطلحات
+    // =========================================================================
+    function renderGlossary() {
+      const main = document.getElementById('mainContent');
+      const allConcepts = [];
+      CURRICULUM_DATA.forEach(item => {
+        if (item.concepts && item.concepts.length > 0) {
+          item.concepts.forEach(c => {
+            allConcepts.push({ ...c, lessonTitle: item.title, unitTitle: item.unitTitle, lessonId: item.id });
+          });
+        }
+      });
+
+      main.innerHTML = `
+        <div class="tab-fade space-y-6">
+          <div class="bg-gradient-to-l from-amber-600 to-orange-700 text-white rounded-3xl p-6 sm:p-8 shadow-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 class="text-2xl sm:text-3xl font-black flex items-center gap-3">
+                  <i class="fa-solid fa-book-bookmark"></i>
+                  <span>بنك المفاهيم والمصطلحات الجغرافية والتاريخية</span>
+                </h2>
+                <p class="text-amber-100 text-sm mt-2">جميع التعريفات والمفاهيم الأساسية الواردة في منهج الفصل الدراسي الأول (${allConcepts.length} مصطلحًا).</p>
+              </div>
+              <button onclick="selectItem('home')" class="self-start px-4 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold transition">
+                العودة للرئيسية
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${allConcepts.map(c => `
+              <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs hover:border-amber-400 transition flex flex-col justify-between gap-3">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="text-base sm:text-lg font-extrabold text-amber-700 dark:text-amber-400">${c.term}</span>
+                    <button onclick="selectItem('${c.lessonId}')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-900/50 font-semibold transition">
+                      الدرس <i class="fa-solid fa-arrow-up-left-from-square mr-1"></i>
+                    </button>
+                  </div>
+                  <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${c.def}</p>
+                </div>
+                <div class="text-xs text-slate-400 font-semibold border-t border-slate-100 dark:border-slate-800 pt-2">
+                  ${c.lessonTitle}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // عرض صفحة الدرس أو التقييم الختامي
+    // =========================================================================
+    function renderLesson(lessonId) {
+      const idx = CURRICULUM_DATA.findIndex(d => d.id === lessonId);
+      if (idx === -1) return renderHome();
+
+      const item = CURRICULUM_DATA[idx];
+      const prevItem = idx > 0 ? CURRICULUM_DATA[idx - 1] : null;
+      const nextItem = idx < CURRICULUM_DATA.length - 1 ? CURRICULUM_DATA[idx + 1] : null;
+      const isDone = completedItems.includes(item.id);
+
+      const main = document.getElementById('mainContent');
+      main.innerHTML = `
+        <div class="tab-fade space-y-6">
+          <!-- رأس الدرس -->
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xs">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <div class="flex items-center gap-2 text-xs font-bold">
+                <span class="px-3 py-1 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">${item.badge}</span>
+                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${item.pages}</span>
+              </div>
+              <button onclick="toggleComplete('${item.id}')" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 no-print ${
+                isDone
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40'
+              }">
+                <i class="fa-solid ${isDone ? 'fa-circle-check' : 'fa-check'}"></i>
+                <span>${isDone ? 'مكتمل (اضغط للإلغاء)' : 'تحديد كمكتمل'}</span>
+              </button>
+            </div>
+
+            <p class="text-xs font-bold text-slate-400 mb-1">${item.unitTitle}</p>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white leading-snug">${item.title}</h2>
+
+            <!-- أزرار التبويب (الملخص / الاختبار التفاعلي / الأسئلة المقالية ونموذج الإجابة) -->
+            <div class="flex flex-wrap gap-2 mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 no-print">
+              <button onclick="switchTab('summary', '${item.id}')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
+                currentTab === 'summary' ? 'bg-sky-600 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }">
+                <i class="fa-solid fa-book-open"></i>
+                <span>الشرح والملخص الشامل</span>
+              </button>
+              <button onclick="switchTab('quiz', '${item.id}')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
+                currentTab === 'quiz' ? 'bg-amber-600 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }">
+                <i class="fa-solid fa-bolt"></i>
+                <span>اختبر نفسك (تصحيح فوري)</span>
+              </button>
+              <button onclick="switchTab('written', '${item.id}')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
+                currentTab === 'written' ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>أسئلة الكتاب ونموذج الإجابة</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- محتوى التبويب المختار -->
+          <div id="tabBody" class="tab-fade">
+            ${renderTabContent(item)}
+          </div>
+
+          <!-- أزرار التنقل بين الدروس -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 no-print">
+            ${prevItem ? `
+              <button onclick="selectItem('${prevItem.id}')" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-sky-500 transition flex items-center gap-3 text-right">
+                <i class="fa-solid fa-arrow-right text-sky-600"></i>
+                <div>
+                  <div class="text-xs text-slate-400">السابق</div>
+                  <div class="text-sm font-bold">${prevItem.title}</div>
+                </div>
+              </button>
+            ` : '<div></div>'}
+
+            ${nextItem ? `
+              <button onclick="selectItem('${nextItem.id}')" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white shadow-md transition flex items-center justify-between sm:justify-end gap-3 text-left">
+                <div>
+                  <div class="text-xs text-sky-200">التالي</div>
+                  <div class="text-sm font-bold">${nextItem.title}</div>
+                </div>
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+            ` : `
+              <button onclick="selectItem('home')" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition flex items-center gap-3">
+                <i class="fa-solid fa-trophy"></i>
+                <span class="text-sm font-bold">أتممت المنهج! العودة للرئيسية</span>
+              </button>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    function switchTab(tab, lessonId) {
+      currentTab = tab;
+      renderLesson(lessonId);
+    }
+
+    function renderTabContent(item) {
+      // 1. تبويب الشرح والملخص
+      if (currentTab === 'summary') {
+        let conceptsHtml = '';
+        if (item.concepts && item.concepts.length > 0) {
+          conceptsHtml = `
+            <div class="bg-amber-50/80 dark:bg-amber-950/30 rounded-3xl p-6 border border-amber-200/80 dark:border-amber-800/50 space-y-4">
+              <h3 class="text-lg font-extrabold text-amber-800 dark:text-amber-300 flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>المفاهيم والمصطلحات الأساسية</span>
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${item.concepts.map(c => `
+                  <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-amber-100 dark:border-amber-900/50 shadow-2xs">
+                    <div class="font-extrabold text-amber-700 dark:text-amber-400 text-sm mb-1">${c.term}</div>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${c.def}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        const sectionsHtml = item.summarySections.map(sec => `
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+            <h3 class="text-lg sm:text-xl font-extrabold text-sky-700 dark:text-sky-400 flex items-center gap-2.5 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <span class="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-950 flex items-center justify-center text-base">
+                <i class="fa-solid ${sec.icon}"></i>
+              </span>
+              <span>${sec.heading}</span>
+            </h3>
+            <ul class="space-y-3">
+              ${sec.points.map(pt => `
+                <li class="flex items-start gap-3 text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+                  <i class="fa-solid fa-circle-dot text-sky-500 mt-1.5 text-xs shrink-0"></i>
+                  <span>${pt}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `).join('');
+
+        return `<div class="space-y-6">${conceptsHtml}${sectionsHtml}</div>`;
+      }
+
+      // 2. تبويب الاختبار التفاعلي
+      if (currentTab === 'quiz') {
+        const totalQ = item.quiz.length;
+        let correctCount = 0;
+        let answeredCount = 0;
+        item.quiz.forEach((q, i) => {
+          if (userAnswers[i] !== undefined) {
+            answeredCount++;
+            if (userAnswers[i] === q.answer) correctCount++;
+          }
+        });
+
+        return `
+          <div class="space-y-6">
+            <!-- شريط النتيجة -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-extrabold">اختبار تفاعلي على: ${item.title}</div>
+                  <div class="text-xs text-slate-500">اختر الإجابة الصحيحة وسيظهر لك التصحيح والتعليل فورًا</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="px-4 py-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-sm font-black">
+                  النتيجة: ${correctCount} / ${totalQ}
+                </span>
+                ${answeredCount > 0 ? `
+                  <button onclick="resetQuiz('${item.id}')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-xs font-bold transition">
+                    إعادة المحاولة
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- الأسئلة -->
+            <div class="space-y-4">
+              ${item.quiz.map((qObj, qIdx) => {
+                const chosen = userAnswers[qIdx];
+                const isAnswered = chosen !== undefined;
+                return `
+                  <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+                    <div class="flex items-start gap-3">
+                      <span class="w-7 h-7 rounded-lg bg-sky-600 text-white text-xs font-black flex items-center justify-center shrink-0 mt-0.5">${qIdx + 1}</span>
+                      <h4 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">${qObj.q}</h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                      ${qObj.options.map((opt, optIdx) => {
+                        let btnStyle = 'bg-slate-50 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 hover:border-sky-500 text-slate-700 dark:text-slate-200';
+                        let icon = '<span class="w-5 h-5 rounded-full border border-slate-300 dark:border-slate-600 inline-block shrink-0"></span>';
+
+                        if (isAnswered) {
+                          if (optIdx === qObj.answer) {
+                            btnStyle = 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-800 dark:text-emerald-200 font-bold';
+                            icon = '<i class="fa-solid fa-circle-check text-emerald-500 text-lg shrink-0"></i>';
+                          } else if (optIdx === chosen && chosen !== qObj.answer) {
+                            btnStyle = 'bg-rose-50 dark:bg-rose-950/60 border-rose-500 text-rose-800 dark:text-rose-200 font-bold';
+                            icon = '<i class="fa-solid fa-circle-xmark text-rose-500 text-lg shrink-0"></i>';
+                          } else {
+                            btnStyle = 'bg-slate-50/50 dark:bg-slate-800/30 border-slate-200 dark:border-slate-800 opacity-60';
+                          }
+                        }
+
+                        return `
+                          <button onclick="answerQuiz('${item.id}', ${qIdx}, ${optIdx})" ${isAnswered ? 'disabled' : ''} class="p-3.5 rounded-2xl border-2 text-right text-sm transition flex items-center gap-3 ${btnStyle}">
+                            ${icon}
+                            <span>${opt}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                    </div>
+
+                    ${isAnswered ? `
+                      <div class="p-3.5 rounded-2xl text-xs sm:text-sm font-semibold flex items-start gap-2.5 ${
+                        chosen === qObj.answer
+                          ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                          : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+                      }">
+                        <i class="fa-solid fa-circle-info mt-0.5"></i>
+                        <span><strong>التوضيح:</strong> ${qObj.explanation}</span>
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // 3. تبويب الأسئلة المقالية ونموذج الإجابة
+      if (currentTab === 'written') {
+        return `
+          <div class="space-y-4">
+            <div class="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-4 text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 font-semibold flex items-center gap-2">
+              <i class="fa-solid fa-eye"></i>
+              <span>حاول التفكير في الإجابة أولاً، ثم اضغط على زر «إظهار الإجابة النموذجية» للتحقق من إجابتك.</span>
+            </div>
+
+            ${item.writtenQA.map((qa, idx) => `
+              <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+                <div class="flex items-start gap-3">
+                  <span class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-xs font-black shrink-0">س ${idx + 1}</span>
+                  <h4 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">${qa.q}</h4>
+                </div>
+
+                <div>
+                  <button onclick="toggleWrittenAnswer('ans_${idx}')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-emerald-100 dark:hover:bg-emerald-950 text-slate-700 dark:text-slate-200 text-xs font-bold transition flex items-center gap-2 no-print">
+                    <i class="fa-solid fa-key text-emerald-600"></i>
+                    <span>إظهار / إخفاء الإجابة النموذجية</span>
+                  </button>
+                  <div id="ans_${idx}" class="hidden mt-3 p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+                    <strong class="text-emerald-700 dark:text-emerald-400">الإجابة النموذجية:</strong> ${qa.a}
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+
+    function answerQuiz(lessonId, qIdx, optIdx) {
+      userAnswers[qIdx] = optIdx;
+      const item = CURRICULUM_DATA.find(d => d.id === lessonId);
+      if (item && item.quiz[qIdx].answer === optIdx) {
+        showToast('إجابة صحيحة! أحسنت', 'fa-circle-check text-emerald-400');
+      } else {
+        showToast('إجابة غير صحيحة، راجع التوضيح', 'fa-circle-xmark text-rose-400');
+      }
+      renderLesson(lessonId);
+    }
+
+    function resetQuiz(lessonId) {
+      userAnswers = {};
+      renderLesson(lessonId);
+    }
+
+    function toggleWrittenAnswer(elemId) {
+      const el = document.getElementById(elemId);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    // =========================================================================
+    // البحث الفوري في المنهج
+    // =========================================================================
+    function handleSearch(query) {
+      const dropdown = document.getElementById('searchResultsDropdown');
+      const q = query.trim().toLowerCase();
+
+      if (!q) {
+        if (dropdown) dropdown.classList.add('hidden');
+        return;
+      }
+
+      const matches = [];
+      CURRICULUM_DATA.forEach(item => {
+        if (item.title.toLowerCase().includes(q)) {
+          matches.push({ title: item.title, sub: item.unitTitle, id: item.id, type: 'درس' });
+        }
+        if (item.concepts) {
+          item.concepts.forEach(c => {
+            if (c.term.toLowerCase().includes(q) || c.def.toLowerCase().includes(q)) {
+              matches.push({ title: c.term, sub: c.def.slice(0, 65) + '...', id: item.id, type: 'مصطلح' });
+            }
+          });
+        }
+      });
+
+      if (dropdown) {
+        dropdown.classList.remove('hidden');
+        if (matches.length === 0) {
+          dropdown.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">لا توجد نتائج مطابقة لـ "${query}"</div>`;
+        } else {
+          dropdown.innerHTML = matches.slice(0, 8).map(m => `
+            <button onclick="selectItem('${m.id}'); document.getElementById('searchResultsDropdown').classList.add('hidden');" class="w-full text-right p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-start justify-between gap-2">
+              <div>
+                <div class="text-xs font-extrabold text-slate-800 dark:text-white">${m.title}</div>
+                <div class="text-[11px] text-slate-500 line-clamp-1">${m.sub}</div>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded-md bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 font-bold shrink-0">${m.type}</span>
+            </button>
+          `).join('');
+        }
+      }
+    }
+
+    // إغلاق قائمة البحث عند النقر خارجها
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('searchResultsDropdown');
+      const input = document.getElementById('searchInput');
+      if (dropdown && input && !dropdown.contains(e.target) && !input.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    // =========================================================================
+    // تشغيل التطبيق عند التحميل
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      initWelcomeGate();
+      updateStudentHeaderBadge();
+      updateProgressUI();
+      renderSidebar();
+      renderHome();
+    });
+  </script>
+</body>
+</html>
